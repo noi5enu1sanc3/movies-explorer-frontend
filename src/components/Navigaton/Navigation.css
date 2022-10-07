@@ -1,4 +1,53 @@
-.header__nav-list {
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__list {
+  margin: 0;
+  padding: 0;
   list-style: none;
   display: flex;
+  gap: 16px;
+}
+
+.nav__link {
+  cursor: pointer;
+  text-decoration: none;
+  color: #000;
+  transition: transform 0.4s ease-in;
+}
+
+.nav__link:hover {
+  transform: scale(1.1);
+}
+
+.nav__movies-link {
+  font-size: 13px;
+  line-height: 1.14;
+  font-weight: 400;
+}
+
+.nav__profile-link {
+  padding: 3px 3px 3px 11px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 40px;
+  background-color: #fff;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 500;
+}
+
+.nav__profile-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-image: url("../../images/icon-profile.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #f9f9f9;
 }
