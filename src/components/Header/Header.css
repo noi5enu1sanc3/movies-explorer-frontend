@@ -1,0 +1,21 @@
+.header {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header_main {
+  background-color: #f3c1f8;
+}
+
+.header__nav-logo {
+  cursor: pointer;
+  transition: transform 0.4s ease-in;
+}
+
+.header__nav-logo:hover {
+  transform: scale(1.1);
+}

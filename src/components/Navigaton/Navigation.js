@@ -4,18 +4,18 @@ import './Navigation.css';
 
 const Navigation = ({ isLoggedIn }) => {
   return (
-    <nav className="header__nav">
-      <ul>
+    <nav>
+      <ul className="header__nav-list">
         {isLoggedIn ? (
           <>
             <li className="header__nav-item">
-              <Link to='/movies' className='header__nav-movies'></Link>
+              <Link to='/movies' className='header__nav-movies'>Фильмы</Link>
             </li>
             <li className="header__nav-item">
-              <Link to='/saved-movies' className='header__nav-movies'></Link>
+              <Link to='/saved-movies' className='header__nav-movies'>Сохранённые фильмы</Link>
             </li>
             <li className="header__nav-item">
-              <Link to='/profile'  className='header__nav-profile'></Link>
+              <Link to='/profile'  className='header__nav-profile'>Аккаунт</Link>
             </li>
           </>
         ) : (
