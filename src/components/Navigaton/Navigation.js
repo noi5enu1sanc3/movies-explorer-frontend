@@ -30,7 +30,7 @@ const Navigation = ({ isLoggedIn }) => {
           </Link>
         </>
       ) : (
-        <ul className="nav__list">
+        <ul className="nav__list nav__list_type_auth">
           <li className="nav__item">
             <Link to="/signup" className="nav__signup-link nav__link">
               Регистрация
