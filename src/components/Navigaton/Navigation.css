@@ -84,3 +84,20 @@
   padding: 8px 20px;
   border-radius: 3px;
 }
+
+@media screen and (max-width: 500px) {
+  .nav__list_type_auth {
+    gap: 14px;
+  }
+
+  .nav__signup-link {
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  .nav__signin-link {
+    font-size: 10px;
+    line-height: 1.6;
+    padding: 5px 12px;
+  }
+}

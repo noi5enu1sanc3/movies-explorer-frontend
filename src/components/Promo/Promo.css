@@ -7,6 +7,7 @@
   flex-direction: column;
   gap: 102px;
   justify-content: space-between;
+  overflow: hidden;
 }
 .promo__heading {
   margin: 0;
@@ -24,10 +25,9 @@
   align-self: flex-end;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
   .promo {
     padding: 300px 44px 70px;
-
     gap: 140px;
     align-items: center;
   }
@@ -39,5 +39,17 @@
     height: 230px;
     align-self: initial;
     background-size: contain;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .promo {
+    padding: 183px 0 40px;
+    gap: 140px;
+    align-items: center;
+  }
+  .promo__heading {
+    font-size: 31px;
+    line-height: 1.25;
   }
 }

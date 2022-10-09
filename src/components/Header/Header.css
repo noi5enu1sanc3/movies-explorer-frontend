@@ -9,9 +9,16 @@
   background-color: #f3c1f8;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
   .header {
     padding-left: 30px;
     padding-right: 30px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .header {
+    padding-left: 14px;
+    padding-right: 14px;
   }
 }
