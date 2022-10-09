@@ -1,6 +1,6 @@
 .about-me {
   box-sizing: border-box;
-  padding: 110px 70px;
+  padding: 110px 70px 100px;
   display: flex;
   flex-direction: column;
   font-family: "Inter", "Courier New", Courier, monospace;
