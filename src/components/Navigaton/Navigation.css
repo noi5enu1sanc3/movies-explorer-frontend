@@ -12,7 +12,7 @@
   gap: 16px;
 }
 
-.nav__list_type_auth {
+.nav__list_type_guest {
   gap: 30px;
 }
 
@@ -85,8 +85,17 @@
   border-radius: 3px;
 }
 
+@media screen and (max-width: 900px) {
+  .nav__list_type_desktop {
+    visibility: hidden;
+  }
+  .nav__profile-link_type_desktop {
+    visibility: hidden;
+  }
+}
+
 @media screen and (max-width: 500px) {
-  .nav__list_type_auth {
+  .nav__list_type_guest {
     gap: 14px;
   }
 

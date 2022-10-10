@@ -6,13 +6,13 @@ import logo from "../../images/logo.svg";
 const Navigation = ({ isLoggedIn }) => {
   return (
     <nav className="nav">
-      <Link to="/">
-        <img src={logo} alt="Logo" className="nav__logo nav__link" />
+      <Link to="/" className="nav__link">
+        <img src={logo} alt="Logo" className="nav__logo" />
       </Link>
 
       {isLoggedIn ? (
         <>
-          <ul className="nav__list">
+          <ul className="nav__list nav__list_type_user nav__list_type_desktop">
             <li className="nav__item">
               <Link to="/movies" className="nav__movies-link nav__link">
                 Фильмы
@@ -24,13 +24,13 @@ const Navigation = ({ isLoggedIn }) => {
               </Link>
             </li>
           </ul>
-          <Link to="/profile" className="nav__profile-link nav__link">
+          <Link to="/profile" className="nav__profile-link nav__link nav__profile-link_type_desktop">
             <span>Аккаунт</span>
-            <div className='nav__profile-icon'></div>
+            <div className="nav__profile-icon"></div>
           </Link>
         </>
       ) : (
-        <ul className="nav__list nav__list_type_auth">
+        <ul className="nav__list nav__list_type_guest">
           <li className="nav__item">
             <Link to="/signup" className="nav__signup-link nav__link">
               Регистрация
