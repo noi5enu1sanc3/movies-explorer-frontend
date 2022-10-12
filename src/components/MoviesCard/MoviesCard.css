@@ -1,0 +1,117 @@
+.movies-card {
+  padding: 0;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  background-color: #fdfdfd;
+  border-radius: 6px;
+  box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.08);
+}
+
+.movies-card__info {
+  box-sizing: border-box;
+  padding: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.movies-card__title {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.movies-card__duration {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 400;
+  color: #a0a0a0;
+}
+
+.movies-card__img {
+  width: 360px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.movies-card__save-btn {
+  align-self: center;
+  margin: 18px 0;
+  width: 100px;
+  height: 29px;
+  border-radius: 30px;
+  border: none;
+  transition: opacity 0.4s ease-in;
+}
+
+.movies-card__save-btn:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.movies-card__save-btn_type_saved:focus-visible {
+  outline: none;
+  box-shadow: 0 2px 6px 1px #ff4062;
+}
+
+.movies-card__save-btn_type_unsaved:focus-visible {
+  outline: none;
+  box-shadow: 0 2px 6px 1px rgba(0, 0, 0, 0.2);
+}
+
+.movies-card__save-btn_type_saved {
+  background-color: #ff4062;
+  background-image: url("../../images/icon-check.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.movies-card__save-btn_type_unsaved {
+  background-color: #f9f9f9;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 400;
+}
+
+.movies-card__save-btn_type_delete {
+  background-color: #f9f9f9;
+  background-image: url("../../images/icon-delete.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.movies-card__save-btn_type_delete:focus-visible {
+  outline: none;
+  box-shadow: 0 2px 6px 1px rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (max-width: 900px) {
+  .movies-card__img {
+    width: 342px;
+    height: 190px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .movies-card__img {
+    width: 300px;
+    height: 168px;
+  }
+  .movies-card__info {
+    padding: 14px;
+  }
+  .movies-card__title {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .movies-card__duration {
+    font-size: 10px;
+    line-height: 1.8;
+  }
+  .movies-card__save-btn {
+    margin: 14px 0;
+  }
+}

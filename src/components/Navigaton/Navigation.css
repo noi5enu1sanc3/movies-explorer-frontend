@@ -17,11 +17,17 @@
 }
 
 .nav__logo {
-  transition: all 0.4s ease-in;
+  display: block;
+  transition: opacity 0.4s ease-in;
+}
+
+.nav__logo-link:focus-visible {
+  outline: none;
+  transform: scale(1.2);
 }
 
 .nav__logo:hover {
-  transform: scale(1.1);
+  opacity: 0.8;
 }
 
 .nav__item {
@@ -33,7 +39,7 @@
   cursor: pointer;
   text-decoration: none;
   color: #000;
-  transition: all 0.4s ease-in;
+  transition: opacity 0.4s ease-in;
 }
 
 .nav__link:hover {
@@ -44,6 +50,11 @@
   font-size: 13px;
   line-height: 1.14;
   font-weight: 400;
+}
+
+.nav__movies-link:focus-visible {
+  outline: none;
+  border-bottom: 1px solid #000;
 }
 
 .nav__profile-link {
@@ -57,6 +68,11 @@
   font-size: 13px;
   line-height: 1;
   font-weight: 500;
+}
+
+.nav__profile-link:focus-visible {
+  outline: none;
+  box-shadow: 0 3px 8px 1px rgba(0, 0, 0, 0.6);
 }
 
 .nav__profile-icon {
@@ -75,6 +91,11 @@
   font-weight: 500;
 }
 
+.nav__signup-link:focus-visible {
+  outline: none;
+  border-bottom: 1px solid #000;
+}
+
 .nav__signin-link {
   font-size: 12px;
   line-height: 1.3;
@@ -83,6 +104,11 @@
   background-color: #000;
   padding: 8px 20px;
   border-radius: 3px;
+}
+
+.nav__signin-link:focus-visible {
+  outline: none;
+  box-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.6);
 }
 
 @media screen and (max-width: 900px) {

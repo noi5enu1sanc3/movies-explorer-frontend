@@ -1,5 +1,6 @@
 .footer {
   box-sizing: border-box;
+  margin-top: auto;
   padding: 80px 70px 20px;
   display: flex;
   flex-direction: column;
@@ -46,6 +47,11 @@
   text-decoration: none;
   color: #000;
   transition: opacity 0.4s ease-in;
+}
+
+.footer__link:focus-visible {
+  outline: none;
+  border-bottom: 1px solid #000;
 }
 
 .footer__link:hover {

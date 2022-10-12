@@ -1,16 +1,28 @@
 .burger-menu {
+  display: inline-block;
   background-color: transparent;
   border: none;
-  display: flex;
-  align-items: center;
   position: fixed;
-  top: 27px;
+  top: 36px;
   right: 35px;
   width: 28px;
   height: 23px;
   cursor: pointer;
   z-index: 1;
   visibility: hidden;
+  transition: opacity 0.4s ease-in;
+}
+
+.burger-menu:hover {
+  opacity: 0.8;
+}
+
+.burger-menu__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
 }
 
 .burger-menu__element {
@@ -61,6 +73,9 @@
 @media screen and (max-width: 900px) {
   .burger-menu {
     visibility: visible;
+  }
+  .burger-menu:focus-visible {
+    outline: 1px solid red;
   }
 }
 
