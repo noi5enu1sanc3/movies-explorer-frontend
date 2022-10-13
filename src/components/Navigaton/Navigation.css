@@ -22,8 +22,8 @@
 }
 
 .nav__logo-link:focus-visible {
-  outline: none;
-  transform: scale(1.2);
+  outline: 1px solid #000;
+  border-radius: 5px;
 }
 
 .nav__logo:hover {
@@ -53,8 +53,8 @@
 }
 
 .nav__movies-link:focus-visible {
-  outline: none;
-  border-bottom: 1px solid #000;
+  outline: 1px solid #000;
+  border-radius: 20px;
 }
 
 .nav__profile-link {
