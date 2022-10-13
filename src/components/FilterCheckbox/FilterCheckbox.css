@@ -64,3 +64,10 @@
   background-color: #2be080;
   transform: translate(15px);
 }
+
+@media screen and (max-width: 500px) {
+  .filter__text {
+    font-size: 11px;
+    line-height: 1.6;
+  }
+}

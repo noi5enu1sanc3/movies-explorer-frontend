@@ -16,8 +16,6 @@ function App() {
     moviesDataPlaceholder.filter((card) => card.isOwn)
   );
 
-  console.log(cards);
-
   return (
     <div className="App">
       <Header isLoggedIn={isLoggedIn} />

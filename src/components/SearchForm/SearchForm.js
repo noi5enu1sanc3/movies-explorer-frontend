@@ -31,7 +31,7 @@ const SearchForm = ({ isLoading }) => {
           />
           <button
             type="submit"
-            className={`search-btn ${isLoading ? "search-btn_loading" : ""}`}
+            className={`search-btn ${isLoading && "search-btn_loading"}`}
           />
         </div>
       </form>
