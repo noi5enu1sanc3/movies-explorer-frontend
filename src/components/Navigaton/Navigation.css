@@ -16,6 +16,10 @@
   gap: 30px;
 }
 
+.nav__list_type_user {
+  margin-left: 60px;
+}
+
 .nav__logo {
   display: block;
   transition: opacity 0.4s ease-in;
@@ -53,8 +57,8 @@
 }
 
 .nav__movies-link:focus-visible {
-  outline: 1px solid #000;
-  border-radius: 20px;
+  outline: var(--focused-text-outline);
+  border-radius: var(--focused-text-border-radius);
 }
 
 .nav__profile-link {
@@ -82,7 +86,7 @@
   background-image: url("../../images/icon-profile.svg");
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #f9f9f9;
+  background-color: var(--fill-color-grey-white);
 }
 
 .nav__signup-link {
@@ -92,8 +96,8 @@
 }
 
 .nav__signup-link:focus-visible {
-  outline: none;
-  border-bottom: 1px solid #000;
+  outline: var(--focused-text-outline);
+  border-radius: var(--focused-text-border-radius);
 }
 
 .nav__signin-link {
@@ -117,6 +121,9 @@
   }
   .nav__profile-link_type_desktop {
     visibility: hidden;
+  }
+  .nav__list_type_user {
+    margin-left: 0;
   }
 }
 

@@ -74,8 +74,8 @@
 }
 
 .about-me__link:focus-visible {
-  outline: 1px solid #000;
-  border-radius: 20px;
+  outline: var(--focused-text-outline);
+  border-radius: var(--focused-text-border-radius);
 }
 
 @media screen and (max-width: 900px) {

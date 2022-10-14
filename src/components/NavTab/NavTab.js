@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./NavTab.css";
 import "./BurgerMenu.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const NavTab = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleNavTab = () => {
     setIsOpen(!isOpen);
   };
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
+  }, [location]);
+
   return (
     <>
       <label

@@ -1,5 +1,5 @@
 .techs {
-  background-color: #f5f5f5;
+  background-color: var(--fill-color-neutral-grey);
   box-sizing: border-box;
   padding: 100px 70px;
   display: flex;
@@ -55,7 +55,7 @@
 }
 
 .techs__item {
-  background-color: #e8e8e8;
+  background-color: var(--accent-color-darker-grey);
   border-radius: 10px;
   width: 90px;
   height: 60px;

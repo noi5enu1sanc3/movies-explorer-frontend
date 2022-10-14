@@ -21,7 +21,7 @@
   padding: 10px 0;
   width: 100%;
   border: none;
-  background-color: #f9f9f9;
+  background-color: var(--fill-color-grey-white);
   font-size: 12px;
   line-height: 1.2;
   font-weight: 500;

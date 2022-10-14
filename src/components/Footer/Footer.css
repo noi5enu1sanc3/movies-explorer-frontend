@@ -11,7 +11,7 @@
 .footer__credits {
   margin: 0;
   margin-bottom: 20px;
-  color: #a0a0a0;
+  color: var(--text-color-grey);
   font-size: 13px;
   line-height: 1.2;
   font-weight: 400;
@@ -19,7 +19,7 @@
 
 .footer__info {
   width: 100%;
-  border-top: 1px solid #e8e8e8;
+  border-top: 1px solid var(--accent-color-darker-grey);
   display: flex;
   justify-content: space-between;
   padding-top: 20px;
@@ -50,8 +50,8 @@
 }
 
 .footer__link:focus-visible {
-  outline: 1px solid #000;
-  border-radius: 20px;
+  outline: var(--focused-text-outline);
+  border-radius: var(--focused-text-border-radius);
 }
 
 .footer__link:hover {
@@ -87,7 +87,7 @@
     font-size: 12px;
   }
   .footer__copyright {
-    color: #a0a0a0;
+    color: var(--text-color-grey);
     order: 10;
     font-size: 12px;
   }

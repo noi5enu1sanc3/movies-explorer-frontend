@@ -81,7 +81,7 @@
 
 .about-project__timeline-subtitle {
   margin: 0;
-  color: #a0a0a0;
+  color: var(--text-color-grey);
   font-size: 14px;
   line-height: 1.2;
   font-weight: 500;

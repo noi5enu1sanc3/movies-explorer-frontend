@@ -72,7 +72,7 @@
   background-image: url("../../images/icon-profile.svg");
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #f9f9f9;
+  background-color: var(--fill-color-grey-white);
 }
 
 @media screen and (max-width: 500px) {
