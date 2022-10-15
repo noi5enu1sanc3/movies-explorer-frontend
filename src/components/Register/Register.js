@@ -5,15 +5,8 @@ import logo from "../../images/logo.svg";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
 const Register = () => {
-  const {
-    values,
-    handleChange,
-    errors,
-    isValid,
-    inputsValidity,
-    setValues,
-    resetForm,
-  } = useFormAndValidation();
+  const { values, handleChange, errors, isValid, inputsValidity } =
+    useFormAndValidation();
 
   return (
     <section className="register">
@@ -84,7 +77,7 @@ const Register = () => {
       </form>
       <p className="register__text">
         <span className="register__signin-text">Уже зарегистрированы?</span>
-        <Link to="signin" className="register__signin-link">
+        <Link to="/signin" className="register__signin-link">
           Войти
         </Link>
       </p>

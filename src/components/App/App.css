@@ -1,4 +1,5 @@
 body {
+  font-family: "Inter", "Courier New", Courier, monospace;
   --accent-color-pink: #ff4062;
   --accent-color-green: #2be080;
   --fill-color-grey-white: #f9f9f9;

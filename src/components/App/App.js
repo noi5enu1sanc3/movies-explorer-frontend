@@ -10,6 +10,7 @@ import moviesDataPlaceholder from "../../utils/constants";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
+import Login from "../Login/Login";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,6 +35,7 @@ function App() {
         />
         <Route path="profile" element={<Profile />} />
         <Route path="signup" element={<Register />} />
+        <Route path="signin" element={<Login />} />
       </Routes>
       {isLoggedIn && <NavTab />}
       {(location.pathname === "/" ||
