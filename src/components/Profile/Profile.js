@@ -26,11 +26,12 @@ const Profile = () => {
     <section className="profile">
       <p className="profile__greeting">Привет, Виталий!</p>
       <form
-        className={`profile__edit-form form ${
-          !isFormDisabled && "profile__edit-form_active"
+        className={`profile__form form ${
+          !isFormDisabled && "profile__form_active"
         }`}
         name="edit-form"
         onSubmit={handleSubmit}
+        noValidate
       >
         <fieldset className="profile__fieldset" disabled={isFormDisabled}>
           <label htmlFor="name-input" className="profile__input-label">
@@ -39,8 +40,9 @@ const Profile = () => {
               value={values.name || ""}
               onChange={handleChange}
               name="name"
+              type="text"
               id="name-input"
-              className="profile__edit-input"
+              className="profile__input"
               ref={ref}
             />
           </label>
@@ -50,8 +52,9 @@ const Profile = () => {
               value={values.email || ""}
               onChange={handleChange}
               name="email"
+              type="email"
               id="email-input"
-              className="profile__edit-input"
+              className="profile__input"
             />
           </label>
         </fieldset>

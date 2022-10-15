@@ -12,6 +12,10 @@
   justify-content: space-between;
 }
 
+.search-form__wrapper:focus-within {
+  border-bottom: 1px solid #000;
+}
+
 .search-form__reset-btn {
   padding: 0;
   outline: none;
@@ -42,10 +46,7 @@
 }
 
 .search-input:focus {
-  outline: 1px solid #000;
-  border-radius: 20px;
-  padding-left: 15px;
-  padding-right: 15px;
+  outline: none;
 }
 
 .search-input::placeholder {

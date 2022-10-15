@@ -14,7 +14,7 @@
   font-weight: 500;
 }
 
-.profile__edit-form_active {
+.profile__form_active {
   display: flex;
   flex-direction: column;
   flex-grow: 2;
@@ -43,7 +43,11 @@
   border: none;
 }
 
-.profile__edit-input {
+.profile__input-label:focus-within {
+  border-bottom: 1px solid #000;
+}
+
+.profile__input {
   flex-grow: 2;
   background-color: #fff;
   border: none;
@@ -53,7 +57,7 @@
   font-weight: 400;
 }
 
-.profile__edit-input:focus-visible {
+.profile__input:focus-visible {
   outline: none;
 }
 
@@ -144,7 +148,7 @@
   .profile {
     padding: 70px 30px 40px;
   }
-  .profile__edit-form {
+  .profile__form {
     min-width: 100%;
   }
   .profile__fieldset {

@@ -9,9 +9,10 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import moviesDataPlaceholder from "../../utils/constants";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
+import Register from "../Register/Register";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cards, setCards] = useState(moviesDataPlaceholder);
   const [savedCards, setSavedCards] = useState(
     moviesDataPlaceholder.filter((card) => card.isOwn)
@@ -21,7 +22,9 @@ function App() {
 
   return (
     <div className="App">
-      <Header isLoggedIn={isLoggedIn} />
+      {location.pathname !== "/signin" && location.pathname !== "/signup" && (
+        <Header isLoggedIn={isLoggedIn} />
+      )}
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="movies" element={<Movies cards={cards} />} />
@@ -30,6 +33,7 @@ function App() {
           element={<SavedMovies savedCards={savedCards} />}
         />
         <Route path="profile" element={<Profile />} />
+        <Route path="signup" element={<Register />} />
       </Routes>
       {isLoggedIn && <NavTab />}
       {(location.pathname === "/" ||

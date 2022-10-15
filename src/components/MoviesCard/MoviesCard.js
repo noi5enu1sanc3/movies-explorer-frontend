@@ -14,6 +14,7 @@ const MoviesCard = ({ card }) => {
       <img src={src} alt={title} className="movies-card__img" />
       {location.pathname === "/movies" && (
         <button
+          type="button"
           className={`movies-card__save-btn ${
             isOwn
               ? "movies-card__save-btn_type_saved"
@@ -22,7 +23,10 @@ const MoviesCard = ({ card }) => {
         >{`${isOwn ? "" : "Сохранить"}`}</button>
       )}
       {location.pathname === "/saved-movies" && (
-        <button className="movies-card__save-btn movies-card__save-btn_type_delete" />
+        <button
+          type="button"
+          className="movies-card__save-btn movies-card__save-btn_type_delete"
+        />
       )}
     </li>
   );

@@ -31,7 +31,11 @@ const NavTab = () => {
         />
       </label>
       <div className={`nav-tab ${isOpen ? "nav-tab_open" : ""}`}>
-        <div className="nav-tab__container">
+        <div
+          className={`nav-tab__container ${
+            isOpen ? "nav-tab__container_open" : ""
+          }`}
+        >
           <ul className="nav-tab__list">
             <li className="nav-tab__item">
               <Link to="/" className="nav-tab__link" onClick={toggleNavTab}>

@@ -28,6 +28,7 @@ const SearchForm = ({ isLoading }) => {
             name="movie"
             placeholder="Фильм"
             onChange={handleIsEmpty}
+            required
           />
           <button
             type="submit"

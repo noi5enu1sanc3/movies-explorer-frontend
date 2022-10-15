@@ -25,7 +25,11 @@ const MoviesCardList = ({ isLoading, cards, savedCards }) => {
               <MoviesCard key={card.id} card={card} />
             ))}
           </ul>
-          <button className="movies-section__load-more-btn">Ещё</button>
+          {location.pathname === "/movies" && (
+            <button type="button" className="movies-section__load-more-btn">
+              Ещё
+            </button>
+          )}
         </section>
       )}
     </>
