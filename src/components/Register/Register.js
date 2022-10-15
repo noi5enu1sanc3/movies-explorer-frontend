@@ -5,8 +5,15 @@ import logo from "../../images/logo.svg";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
 const Register = () => {
-  const { values, handleChange, errors, isValid, setValues, resetForm } =
-    useFormAndValidation();
+  const {
+    values,
+    handleChange,
+    errors,
+    isValid,
+    inputsValidity,
+    setValues,
+    resetForm,
+  } = useFormAndValidation();
 
   return (
     <section className="register">
@@ -21,7 +28,9 @@ const Register = () => {
         <input
           value={values.name || ""}
           onChange={handleChange}
-          className="register__input"
+          className={`register__input ${
+            !inputsValidity.name && "register__input_invalid"
+          }`}
           id="register-input-name"
           name="name"
           type="text"
@@ -29,20 +38,22 @@ const Register = () => {
           maxLength="30"
           required
         />
-        <span className="register__input-error">{errors.name}</span>
+        <span className="register__error">{errors.name}</span>
         <label htmlFor="register-input-email" className="register__input-label">
           E-mail
         </label>
         <input
           value={values.email || ""}
           onChange={handleChange}
-          className="register__input"
+          className={`register__input ${
+            !inputsValidity.email && "register__input_invalid"
+          }`}
           id="register-input-email"
           name="email"
           type="email"
           required
         />
-        <span className="register__input-error">{errors.email}</span>
+        <span className="register__error">{errors.email}</span>
         <label
           htmlFor="register-input-password"
           className="register__input-label"
@@ -52,13 +63,15 @@ const Register = () => {
         <input
           value={values.password || ""}
           onChange={handleChange}
-          className="register__input"
+          className={`register__input ${
+            !inputsValidity.password && "register__input_invalid"
+          }`}
           id="register-input-password"
           name="password"
           type="password"
           required
         />
-        <span className="register__input-error">{errors.password}</span>
+        <span className="register__error">{errors.password}</span>
         <button
           type="submit"
           className={`register__submit-btn ${
@@ -69,12 +82,12 @@ const Register = () => {
           Зарегистрироваться
         </button>
       </form>
-      <div className="register__link-wrapper">
+      <p className="register__text">
         <span className="register__signin-text">Уже зарегистрированы?</span>
         <Link to="signin" className="register__signin-link">
           Войти
         </Link>
-      </div>
+      </p>
     </section>
   );
 };

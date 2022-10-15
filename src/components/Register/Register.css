@@ -61,7 +61,11 @@
   border-bottom: 1px solid #000;
 }
 
-.register__input-error {
+.register__input_invalid {
+  color: var(--accent-color-pink);
+}
+
+.register__error {
   padding-top: 6px;
   color: var(--accent-color-pink);
   display: block;
@@ -100,11 +104,11 @@
   color: var(--text-color-grey);
 }
 
-.register__link-wrapper {
+.register__text {
+  margin: 0;
   align-self: center;
   display: flex;
   gap: 6px;
-  align-items: baseline;
 }
 
 .register__signin-text {
