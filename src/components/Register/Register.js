@@ -11,7 +11,7 @@ const Register = () => {
   return (
     <main className="register">
       <Link to="/" className="register__logo-link">
-        <img src={logo} alt="Logo" className="register__logo" />
+        <img src={logo} alt="Логотип" className="register__logo" />
       </Link>
       <h2 className="register__greeting">Добро пожаловать!</h2>
       <form className="register__form form" name="register-form" noValidate>

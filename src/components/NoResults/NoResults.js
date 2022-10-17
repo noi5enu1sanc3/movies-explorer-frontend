@@ -13,7 +13,11 @@ const NoResults = () => {
     <section className="no-results">
       {nothingFound && (
         <>
-          <img src={iconSad} alt="sad emoji" className="no-results__img" />
+          <img
+            src={iconSad}
+            alt="Грустный эмоджи"
+            className="no-results__img"
+          />
           <p>По этому запросу ничего не найдено</p>
         </>
       )}
@@ -21,7 +25,7 @@ const NoResults = () => {
         <>
           <img
             src={iconHappy}
-            alt="smiling emoji"
+            alt="Улыбающийся эмоджи"
             className="no-results__img"
           />
           <p>Вы ещё ничего не сохранили! Попробуйте что-нибудь поискать</p>

@@ -11,7 +11,7 @@ const Login = () => {
   return (
     <main className="login">
       <Link to="/" className="login__logo-link">
-        <img src={logo} alt="Logo" className="login__logo" />
+        <img src={logo} alt="Логотип" className="login__logo" />
       </Link>
       <h2 className="login__greeting">Рады видеть!</h2>
       <form className="login__form form" name="login-form" noValidate>

@@ -1,0 +1,81 @@
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.4s, opacity 0.4s ease-in-out;
+}
+
+.popup_show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup__container {
+  position: relative;
+  background-color: #fff;
+  width: 30%;
+  border-radius: 6px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  padding: 25px 35px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: default;
+}
+
+.popup__message {
+  margin: 0;
+  margin-bottom: 25px;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.popup__img {
+  width: 30px;
+  margin-bottom: 15px;
+}
+
+.popup__close-btn {
+  border: none;
+  background-color: #000;
+  background-image: url("../../images/icon-check.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 6px;
+  padding: 10px 0;
+  width: 60px;
+  cursor: pointer;
+  transition: opacity 0.4s ease-in;
+}
+
+.popup__close-btn:hover {
+  opacity: 0.8;
+}
+
+.popup__close-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.6);
+}
+
+@media screen and (max-width: 900px) {
+  .popup__container {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .popup__container {
+    width: 90%;
+  }
+}

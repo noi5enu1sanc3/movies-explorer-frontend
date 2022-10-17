@@ -7,7 +7,7 @@ const Navigation = ({ isLoggedIn }) => {
   return (
     <nav className="nav">
       <Link to="/" className="nav__link nav__logo-link">
-        <img src={logo} alt="Logo" className="nav__logo" />
+        <img src={logo} alt="Логотип" className="nav__logo" />
       </Link>
 
       {isLoggedIn ? (
