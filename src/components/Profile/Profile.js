@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Profile.css";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
@@ -13,8 +13,11 @@ const Profile = () => {
 
   const enableEdit = () => {
     setIsFormDisabled(false);
-    setTimeout(() => ref.current.focus(), 50);
   };
+
+  useEffect(() => {
+    ref.current.focus();
+  });
 
   const handleSubmit = (evt) => {
     evt.preventDefault();

@@ -12,7 +12,7 @@ import moviesDataPlaceholder from "../../utils/constants";
 import PageLayout from "../PageLayout/PageLayout";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cards, setCards] = useState(moviesDataPlaceholder);
   const [savedCards, setSavedCards] = useState(
     moviesDataPlaceholder.filter((card) => card.isOwn)
