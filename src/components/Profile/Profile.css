@@ -33,10 +33,14 @@
   min-width: 100%;
   display: flex;
   border-bottom: 1px solid var(--accent-color-darker-grey);
-  padding: 16px 0;
+  padding: 0 0 16px;
   font-size: 11px;
   line-height: 1.2;
   font-weight: 500;
+}
+
+.profile__input-label:first-of-type {
+  padding: 16px 0;
 }
 
 .profile__input-label:last-of-type {
@@ -52,13 +56,35 @@
   background-color: #fff;
   border: none;
   text-align: end;
+  color: #000;
   font-size: 11px;
   line-height: 1.2;
   font-weight: 400;
 }
 
+.profile__input_invalid {
+  color: var(--accent-color-pink);
+}
+
+.profile__input_invalid:focus {
+  color: #000;
+}
+
+.profile__input_invalid:disabled {
+  color: #000;
+}
+
 .profile__input:focus-visible {
   outline: none;
+}
+
+.profile__error {
+  color: var(--accent-color-pink);
+  display: block;
+  min-height: 24px;
+  font-size: 10px;
+  line-height: 1.2;
+  font-weight: 400;
 }
 
 .profile__submit-btn {
@@ -73,6 +99,11 @@
   font-weight: 500;
   cursor: pointer;
   transition: opacity 0.4s ease-in;
+}
+
+.profile__submit-btn:disabled {
+  background-color: var(--fill-color-grey-white);
+  color: var(--text-color-grey);
 }
 
 .profile__submit-btn:hover {

@@ -29,6 +29,13 @@ export function useFormAndValidation() {
     [setValues, setErrors, setIsValid, setInputsValidity]
   );
 
+  const resetErrors = useCallback(
+    (newErrors = {}) => {
+      setErrors(newErrors);
+    },
+    [setErrors]
+  );
+
   return {
     values,
     handleChange,
@@ -38,5 +45,6 @@ export function useFormAndValidation() {
     setValues,
     setIsValid,
     inputsValidity,
+    resetErrors,
   };
 }

@@ -9,7 +9,7 @@ const Register = () => {
     useFormAndValidation();
 
   return (
-    <section className="register">
+    <main className="register">
       <Link to="/" className="register__logo-link">
         <img src={logo} alt="Logo" className="register__logo" />
       </Link>
@@ -22,7 +22,7 @@ const Register = () => {
           value={values.name || ""}
           onChange={handleChange}
           className={`register__input ${
-            !inputsValidity.name && "register__input_invalid"
+            !inputsValidity.name ? "register__input_invalid" : ""
           }`}
           id="register-input-name"
           name="name"
@@ -39,7 +39,7 @@ const Register = () => {
           value={values.email || ""}
           onChange={handleChange}
           className={`register__input ${
-            !inputsValidity.email && "register__input_invalid"
+            !inputsValidity.email ? "register__input_invalid" : ""
           }`}
           id="register-input-email"
           name="email"
@@ -57,7 +57,7 @@ const Register = () => {
           value={values.password || ""}
           onChange={handleChange}
           className={`register__input ${
-            !inputsValidity.password && "register__input_invalid"
+            !inputsValidity.password ? "register__input_invalid" : ""
           }`}
           id="register-input-password"
           name="password"
@@ -68,7 +68,7 @@ const Register = () => {
         <button
           type="submit"
           className={`register__submit-btn ${
-            !isValid && "register__submit-btn_disabled"
+            !isValid ? "register__submit-btn_disabled" : ""
           }`}
           disabled={!isValid}
         >
@@ -81,7 +81,7 @@ const Register = () => {
           Войти
         </Link>
       </p>
-    </section>
+    </main>
   );
 };
 

@@ -5,7 +5,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
 const SavedMovies = ({ savedCards }) => {
   return (
-    <main className="movies">
+    <main className="saved-movies">
       <SearchForm />
       <MoviesCardList savedCards={savedCards} />
     </main>

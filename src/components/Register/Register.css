@@ -65,6 +65,10 @@
   color: var(--accent-color-pink);
 }
 
+.register__input_invalid:focus {
+  color: #000;
+}
+
 .register__error {
   padding-top: 6px;
   color: var(--accent-color-pink);

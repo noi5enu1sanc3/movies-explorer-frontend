@@ -6,7 +6,7 @@ import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 const Profile = () => {
   const [isFormDisabled, setIsFormDisabled] = useState(true);
 
-  const { values, handleChange, errors, isValid, setValues, resetForm } =
+  const { values, handleChange, errors, isValid, setValues, inputsValidity } =
     useFormAndValidation();
 
   const ref = useRef(null);
@@ -23,11 +23,11 @@ const Profile = () => {
   };
 
   return (
-    <section className="profile">
+    <main className="profile">
       <p className="profile__greeting">Привет, Виталий!</p>
       <form
         className={`profile__form form ${
-          !isFormDisabled && "profile__form_active"
+          !isFormDisabled ? "profile__form_active" : ""
         }`}
         name="edit-form"
         onSubmit={handleSubmit}
@@ -37,29 +37,45 @@ const Profile = () => {
           <label htmlFor="name-input" className="profile__input-label">
             Имя
             <input
-              value={values.name || ""}
+              value={values.name || "Sonia"}
               onChange={handleChange}
               name="name"
               type="text"
+              minLength="2"
+              maxLength="30"
+              required
               id="name-input"
-              className="profile__input"
+              className={`profile__input ${
+                !inputsValidity.name ? "profile__input_invalid" : ""
+              }`}
               ref={ref}
             />
           </label>
+          <span className="profile__error">{errors.name}</span>
           <label htmlFor="email-input" className="profile__input-label">
             E-mail
             <input
-              value={values.email || ""}
+              value={values.email || "abc@abc.org"}
               onChange={handleChange}
               name="email"
               type="email"
+              required
               id="email-input"
-              className="profile__input"
+              className={`profile__input ${
+                !inputsValidity.email ? "profile__input_invalid" : ""
+              }`}
             />
           </label>
+          <span className="profile__error">{errors.email}</span>
         </fieldset>
         {!isFormDisabled && (
-          <button type="submit" className="profile__submit-btn">
+          <button
+            type="submit"
+            className={`profile__submit-btn ${
+              !isValid ? "profile__submit-btn_disabled" : ""
+            }`}
+            disabled={!isValid}
+          >
             Сохранить
           </button>
         )}
@@ -80,7 +96,7 @@ const Profile = () => {
           </>
         )}
       </div>
-    </section>
+    </main>
   );
 };
 

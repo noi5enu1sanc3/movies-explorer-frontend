@@ -4,7 +4,6 @@
   padding: 100px 70px;
   display: flex;
   flex-direction: column;
-  font-family: "Inter", "Courier New", Courier, monospace;
 }
 
 .techs__heading-container {

@@ -9,7 +9,7 @@ const Login = () => {
     useFormAndValidation();
 
   return (
-    <section className="login">
+    <main className="login">
       <Link to="/" className="login__logo-link">
         <img src={logo} alt="Logo" className="login__logo" />
       </Link>
@@ -22,7 +22,7 @@ const Login = () => {
           value={values.email || ""}
           onChange={handleChange}
           className={`login__input ${
-            !inputsValidity.email && "login__input_invalid"
+            !inputsValidity.email ? "login__input_invalid" : ""
           }`}
           id="login-input-email"
           name="email"
@@ -37,7 +37,7 @@ const Login = () => {
           value={values.password || ""}
           onChange={handleChange}
           className={`login__input ${
-            !inputsValidity.password && "login__input_invalid"
+            !inputsValidity.password ? "login__input_invalid" : ""
           }`}
           id="login-input-password"
           name="password"
@@ -48,7 +48,7 @@ const Login = () => {
         <button
           type="submit"
           className={`login__submit-btn ${
-            !isValid && "login__submit-btn_disabled"
+            !isValid ? "login__submit-btn_disabled" : ""
           }`}
           disabled={!isValid}
         >
@@ -57,11 +57,11 @@ const Login = () => {
       </form>
       <p className="login__text">
         <span className="login__signup-text">Ещё не зарегистрированы?</span>
-        <Link to="signup" className="login__signup-link">
+        <Link to="/signup" className="login__signup-link">
           Регистрация
         </Link>
       </p>
-    </section>
+    </main>
   );
 };
 

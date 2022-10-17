@@ -1,43 +1,53 @@
-import React, { useState } from "react";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import "./SearchForm.css";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
 const SearchForm = ({ isLoading }) => {
-  const [isInputEmpty, setIsInputEmpty] = useState(true);
-  const handleIsEmpty = (evt) => {
-    setIsInputEmpty(evt.target.value.length === 0);
+  const { values, handleChange, errors, resetForm, resetErrors, isValid } =
+    useFormAndValidation();
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
   };
-  const clearSearch = (evt) => {
-    evt.target.closest(".search-form").reset();
-    setIsInputEmpty(true);
-  };
+
   return (
-    <>
-      <form className="search-form" name="search-movie">
-        <div className="search-form__wrapper">
+    <section className="search">
+      <form
+        className="search__search-form form"
+        name="search-movie"
+        onSubmit={handleSubmit}
+        noValidate
+      >
+        <div className="search__search-form__wrapper">
           <button
             type="button"
-            className={`search-form__reset-btn ${
-              !isInputEmpty && "search-form__reset-btn_active"
+            className={`search__search-form__reset-btn ${
+              values.movie ? "search__search-form__reset-btn_active" : ""
             }`}
-            disabled={isInputEmpty}
-            onClick={!isInputEmpty ? clearSearch : undefined}
+            disabled={!values.movie}
+            onClick={resetForm}
           />
           <input
-            className="search-input"
+            className="search__search-input"
             name="movie"
             placeholder="Фильм"
-            onChange={handleIsEmpty}
+            onChange={handleChange}
+            value={values.movie || ""}
+            onBlur={resetErrors}
             required
           />
+          <span className="search__error">{errors.movie}</span>
           <button
             type="submit"
-            className={`search-btn ${isLoading && "search-btn_loading"}`}
+            className={`search__search-btn ${
+              isLoading ? "search__search-btn_loading" : ""
+            } ${!isValid ? "search__search-btn_disabled" : ""}`}
+            disabled={!isValid}
           />
         </div>
       </form>
       <FilterCheckbox />
-    </>
+    </section>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Navigation.css";
 import logo from "../../images/logo.svg";
 
@@ -14,14 +14,28 @@ const Navigation = ({ isLoggedIn }) => {
         <>
           <ul className="nav__list nav__list_type_user nav__list_type_desktop">
             <li className="nav__item">
-              <Link to="movies" className="nav__movies-link nav__link">
+              <NavLink
+                to="movies"
+                className={({ isActive }) =>
+                  isActive
+                    ? "nav__movies-link nav__link nav__movies-link_active"
+                    : "nav__movies-link nav__link"
+                }
+              >
                 Фильмы
-              </Link>
+              </NavLink>
             </li>
             <li className="nav__item">
-              <Link to="saved-movies" className="nav__movies-link nav__link">
+              <NavLink
+                to="saved-movies"
+                className={({ isActive }) =>
+                  isActive
+                    ? "nav__movies-link nav__link nav__movies-link_active"
+                    : "nav__movies-link nav__link"
+                }
+              >
                 Сохранённые фильмы
-              </Link>
+              </NavLink>
             </li>
           </ul>
           <Link

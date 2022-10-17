@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./NavTab.css";
 import "./BurgerMenu.css";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const NavTab = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,45 +31,66 @@ const NavTab = () => {
         />
       </label>
       <div className={`nav-tab ${isOpen ? "nav-tab_open" : ""}`}>
-        <div
+        <nav
           className={`nav-tab__container ${
             isOpen ? "nav-tab__container_open" : ""
           }`}
         >
           <ul className="nav-tab__list">
             <li className="nav-tab__item">
-              <Link to="/" className="nav-tab__link" onClick={toggleNavTab}>
+              <NavLink
+                end
+                to="/"
+                className={({ isActive }) =>
+                  isActive
+                    ? "nav-tab__link_active nav-tab__link"
+                    : "nav-tab__link"
+                }
+                onClick={toggleNavTab}
+              >
                 Главная
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-tab__item">
-              <Link
+              <NavLink
                 to="/movies"
-                className="nav-tab__link"
+                className={({ isActive }) =>
+                  isActive
+                    ? "nav-tab__link_active nav-tab__link"
+                    : "nav-tab__link"
+                }
                 onClick={toggleNavTab}
               >
                 Фильмы
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-tab__item">
-              <Link
+              <NavLink
                 to="/saved-movies"
-                className="nav-tab__link"
+                className={({ isActive }) =>
+                  isActive
+                    ? "nav-tab__link_active nav-tab__link"
+                    : "nav-tab__link"
+                }
                 onClick={toggleNavTab}
               >
                 Сохранённые фильмы
-              </Link>
+              </NavLink>
             </li>
           </ul>
-          <Link
+          <NavLink
             to="/profile"
-            className="nav-tab__profile-link nav-tab__link"
+            className={({ isActive }) =>
+              isActive
+                ? "nav-tab__profile-link nav-tab__link nav-tab__profile-link_active"
+                : "nav-tab__profile-link nav-tab__link"
+            }
             onClick={toggleNavTab}
           >
             <span>Аккаунт</span>
             <div className="nav-tab__profile-icon"></div>
-          </Link>
-        </div>
+          </NavLink>
+        </nav>
       </div>
     </>
   );
