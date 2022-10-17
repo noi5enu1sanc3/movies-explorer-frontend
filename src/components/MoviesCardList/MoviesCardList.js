@@ -22,7 +22,7 @@ const MoviesCardList = ({ isLoading, cards, savedCards }) => {
               ))}
             </ul>
           )}
-          {!cards.length === 0 && (
+          {cards.length !== 0 && (
             <button className="movies-section__load-more-btn">Ещё</button>
           )}
         </section>
