@@ -37,7 +37,7 @@ const Profile = () => {
           <label htmlFor="name-input" className="profile__input-label">
             Имя
             <input
-              value={values.name || "Sonia"}
+              value={values.name || ""}
               onChange={handleChange}
               name="name"
               type="text"
@@ -46,7 +46,7 @@ const Profile = () => {
               required
               id="name-input"
               className={`profile__input ${
-                !inputsValidity.name ? "profile__input_invalid" : ""
+                inputsValidity.name === false ? "profile__input_invalid" : ""
               }`}
               ref={ref}
             />
@@ -55,14 +55,14 @@ const Profile = () => {
           <label htmlFor="email-input" className="profile__input-label">
             E-mail
             <input
-              value={values.email || "abc@abc.org"}
+              value={values.email || ""}
               onChange={handleChange}
               name="email"
               type="email"
               required
               id="email-input"
               className={`profile__input ${
-                !inputsValidity.email ? "profile__input_invalid" : ""
+                inputsValidity.email === false ? "profile__input_invalid" : ""
               }`}
             />
           </label>
