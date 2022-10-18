@@ -1,0 +1,22 @@
+body {
+  font-family: "Inter", "Courier New", Courier, monospace;
+  --accent-color-pink: #ff4062;
+  --accent-color-green: #2be080;
+  --fill-color-grey-white: #f9f9f9;
+  --accent-color-darker-grey: #e8e8e8;
+  --fill-color-neutral-grey: #f5f5f5;
+  --text-color-grey: #a0a0a0;
+  --focused-text-outline: 1px solid #000;
+  --focused-text-border-radius: 20px;
+}
+
+.App {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 1440px;
+  min-width: 320px;
+  margin: 0 auto;
+}

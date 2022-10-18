@@ -1,0 +1,73 @@
+.filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter__text {
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 400;
+}
+
+.filter__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.filter__switch {
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  position: relative;
+}
+
+.filter__input:focus-visible + .filter__slider {
+  box-shadow: 0 0 6px 1px var(--accent-color-green);
+}
+
+.filter__slider {
+  position: absolute;
+  box-shadow: none;
+  border-radius: 20px;
+  background-color: #ebebeb;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  transition: opacity 0.4s ease-in;
+}
+
+.filter__slider:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.filter__slider::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--fill-color-neutral-grey);
+  border: 1px solid #fff;
+  position: absolute;
+  bottom: 1px;
+  left: 2px;
+  transition: all 0.4s ease-in;
+}
+
+.filter__input:checked + .filter__slider::before {
+  background-color: var(--accent-color-green);
+  transform: translate(15px);
+}
+
+@media screen and (max-width: 500px) {
+  .filter__text {
+    font-size: 11px;
+    line-height: 1.6;
+  }
+}

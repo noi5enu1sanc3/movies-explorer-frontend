@@ -1,0 +1,21 @@
+.no-results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  padding: 60px 0;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: var(--text-color-grey);
+  text-align: center;
+}
+.no-results__img {
+  width: 50px;
+}
+
+@media screen and (max-width: 500px) {
+  .no-results {
+    font-size: 15px;
+  }
+}

@@ -1,0 +1,150 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 16px;
+}
+
+.nav__list_type_guest {
+  gap: 30px;
+}
+
+.nav__list_type_user {
+  margin-left: 60px;
+}
+
+.nav__logo {
+  display: block;
+  transition: opacity 0.4s ease-in;
+}
+
+.nav__logo-link:focus-visible {
+  outline: 1px solid #000;
+  border-radius: 5px;
+}
+
+.nav__logo:hover {
+  opacity: 0.8;
+}
+
+.nav__item {
+  display: block;
+  min-width: fit-content;
+}
+
+.nav__link {
+  cursor: pointer;
+  text-decoration: none;
+  color: #000;
+  transition: opacity 0.4s ease-in;
+}
+
+.nav__link:hover {
+  opacity: 0.7;
+}
+
+.nav__movies-link {
+  font-size: 13px;
+  line-height: 1.14;
+  font-weight: 500;
+}
+
+.nav__movies-link_active {
+  font-weight: 400;
+  cursor: default;
+}
+
+.nav__movies-link:focus-visible {
+  outline: var(--focused-text-outline);
+  border-radius: var(--focused-text-border-radius);
+}
+
+.nav__profile-link {
+  padding: 3px 3px 3px 11px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 40px;
+  background-color: #fff;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 500;
+}
+
+.nav__profile-link:focus-visible {
+  outline: none;
+  box-shadow: 0 3px 8px 1px rgba(0, 0, 0, 0.6);
+}
+
+.nav__profile-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-image: url("../../images/icon-profile.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: var(--fill-color-grey-white);
+}
+
+.nav__signup-link {
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.nav__signup-link:focus-visible {
+  outline: var(--focused-text-outline);
+  border-radius: var(--focused-text-border-radius);
+}
+
+.nav__signin-link {
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: 500;
+  color: #fff;
+  background-color: #000;
+  padding: 8px 20px;
+  border-radius: 3px;
+}
+
+.nav__signin-link:focus-visible {
+  outline: none;
+  box-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.6);
+}
+
+@media screen and (max-width: 900px) {
+  .nav__list_type_desktop {
+    visibility: hidden;
+  }
+  .nav__profile-link_type_desktop {
+    visibility: hidden;
+  }
+  .nav__list_type_user {
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .nav__list_type_guest {
+    gap: 14px;
+  }
+
+  .nav__signup-link {
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  .nav__signin-link {
+    font-size: 10px;
+    line-height: 1.6;
+    padding: 5px 12px;
+  }
+}
