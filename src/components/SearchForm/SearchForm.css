@@ -59,9 +59,22 @@
   font-weight: 500;
 }
 
-.search__error {
+.search__input-error {
   position: absolute;
   top: 80px;
+  left: 0;
+  color: var(--accent-color-pink);
+  display: block;
+  min-height: 24px;
+  font-size: 15px;
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+.search__submit-error {
+  position: absolute;
+  top: 80px;
+  right: 0;
   color: var(--accent-color-pink);
   display: block;
   min-height: 24px;
@@ -94,15 +107,6 @@
 
 .search__search-btn:hover {
   opacity: 0.8;
-}
-
-.search__search-btn_disabled {
-  cursor: default;
-  opacity: 0.5;
-}
-
-.search__search-btn_disabled:hover {
-  opacity: 0.5;
 }
 
 @media screen and (max-width: 500px) {

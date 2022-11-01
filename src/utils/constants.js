@@ -1,5 +1,8 @@
 import img from "../images/movie-img-placeholder.png";
 
+export const SUBMIT_ERROR_TEXT = "Нужно ввести ключевое слово";
+export const BASE_MOVIES_URL = "https://api.nomoreparties.co";
+
 const moviesDataPlaceholder = [
   {
     title: "В погоне за Бенкси",

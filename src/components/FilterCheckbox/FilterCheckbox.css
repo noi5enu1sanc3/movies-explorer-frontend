@@ -60,7 +60,7 @@
   transition: all 0.4s ease-in;
 }
 
-.filter__input:checked + .filter__slider::before {
+.filter__input_checked + .filter__slider::before {
   background-color: var(--accent-color-green);
   transform: translate(15px);
 }
