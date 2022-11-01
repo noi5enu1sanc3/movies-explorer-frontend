@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./Movies.css";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
+import LoadMoreButton from "../LoadMoreButton/LoadMoreButton";
 import Preloader from "../Preloader/Preloader";
 import { getMovies } from "../../utils/MoviesApi";
 import {
   filterByQuery,
   filterByDuration,
 } from "../../utils/filterSearchResults";
-import LoadMoreButton from "../LoadMoreButton/LoadMoreButton";
+import { useWindowResize } from "../../hooks/useWindowResize";
 
 const Movies = ({ savedCards }) => {
   const location = useLocation();
+  const width = useWindowResize();
 
   const userSearch = JSON.parse(localStorage.getItem("userSearch"));
 
@@ -26,19 +28,6 @@ const Movies = ({ savedCards }) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [offset, setOffset] = useState(12);
-
-  const cards = movies.slice(0, offset);
-
-  const handleLoadMore = () => {
-    setOffset(offset + 3);
-  };
-
-  const isLoadMoreVisible =
-    location.pathname === "/movies" &&
-    cards.length !== movies.length &&
-    movies.length > 12;
-
   const handleSubmit = async (query, isShort) => {
     setIsLoading(true);
 
@@ -46,16 +35,55 @@ const Movies = ({ savedCards }) => {
     const movies = data.filter(
       (movie) =>
         (filterByQuery(movie.nameRU, query) ||
-          filterByQuery(movie.nameEN, query) ||
-          filterByQuery(movie.description, query) ||
-          filterByQuery(movie.director, query)) &&
+          filterByQuery(movie.nameEN, query)) &&
         (isShort ? filterByDuration(movie.duration) : movie)
     );
+    setEnd(getInitialCardsCount());
     setMovies(movies);
+
+    console.log("movies >", movies);
+    console.log("cards >", cards);
+    console.log("end >", end);
     const userSearch = { query: query, isShort: isShort, movies: movies };
     localStorage.setItem("userSearch", JSON.stringify(userSearch));
+
     setIsLoading(false);
   };
+
+  const getInitialCardsCount = () => {
+    if (width <= 767) return 5;
+    if (width <= 1275) return 8;
+    return 12;
+  };
+  const getLoadCount = () => {
+    if (width <= 767) return 2;
+    if (width <= 1275) return 2;
+    return 3;
+  };
+
+  const [end, setEnd] = useState(getInitialCardsCount());
+
+  const getCards = useCallback(() => movies.slice(0, end), [movies, end]);
+  const [cards, setCards] = useState(getCards());
+
+  const isLoadMoreVisible =
+    location.pathname === "/movies" &&
+    cards.length !== movies.length &&
+    movies.length > getInitialCardsCount();
+
+  const handleLoadMore = () => {
+    setEnd(cards.length + getLoadCount());
+    setCards(getCards());
+  };
+
+  // useEffect(() => {
+  //   setEnd(cards.length + getLoadCount());
+  //   console.log('')
+  // }, [width]);
+
+  useEffect(() => {
+    setCards(getCards());
+  }, [getCards]);
 
   return (
     <main className="movies">

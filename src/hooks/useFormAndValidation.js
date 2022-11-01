@@ -17,6 +17,7 @@ export function useFormAndValidation() {
 
   const handleCheckBox = (e) => {
     const { name, checked } = e.target;
+    console.log(name, checked);
     setCheckBoxValues({ ...checkboxValues, [name]: checked });
   };
 

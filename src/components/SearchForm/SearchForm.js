@@ -16,17 +16,16 @@ const SearchForm = ({ isLoading, handleSubmit, isChecked, query }) => {
     resetForm,
     resetErrors,
     validateSubmit,
-    isValid,
   } = useFormAndValidation();
 
   const onSubmit = (evt) => {
     evt.preventDefault();
 
-    validateSubmit(evt, SUBMIT_ERROR_TEXT);
-    if (!isValid) return;
-
     const query = values.movie;
     const filter = checkboxValues.shortMeter;
+
+    validateSubmit(evt, SUBMIT_ERROR_TEXT);
+    if (!query) return;
 
     handleSubmit(query, filter);
     resetErrors();
