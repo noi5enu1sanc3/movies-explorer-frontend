@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Profile.css";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-const Profile = () => {
+const Profile = ({ onLogout }) => {
   const [isFormDisabled, setIsFormDisabled] = useState(true);
 
   const { values, handleChange, errors, isValid, setValues, inputsValidity } =
@@ -90,9 +90,13 @@ const Profile = () => {
             >
               Редактировать
             </button>
-            <Link to="/" className="profile__logout-link">
+            <button
+              type="button"
+              className="profile__logout-btn"
+              onClick={onLogout}
+            >
               Выйти из аккаунта
-            </Link>
+            </button>
           </>
         )}
       </div>

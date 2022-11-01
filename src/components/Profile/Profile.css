@@ -141,20 +141,21 @@
   border-radius: var(--focused-text-border-radius);
 }
 
-.profile__logout-link {
+.profile__logout-btn {
   color: var(--accent-color-pink);
-  text-decoration: none;
+  background-color: transparent;
+  border: none;
   font-size: 13px;
   line-height: 1.2;
   font-weight: 500;
   transition: opacity 0.4s ease-in;
 }
 
-.profile__logout-link:hover {
+.profile__logout-btn:hover {
   opacity: 0.8;
 }
 
-.profile__logout-link:focus-visible {
+.profile__logout-btn:focus-visible {
   outline: var(--focused-text-outline);
   border-radius: var(--focused-text-border-radius);
 }

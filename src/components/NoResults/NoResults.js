@@ -7,10 +7,22 @@ import iconHappy from "../../images/successful.svg";
 const NoResults = () => {
   const location = useLocation();
   const nothingSaved = location.pathname === "/saved-movies";
-  const nothingFound = location.pathname === "/movies";
+  const nothingFound =
+    location.pathname === "/movies" && localStorage.getItem("userSearch");
+  const noPreviousSearches =
+    location.pathname === "/movies" && !localStorage.getItem("userSearch");
 
   return (
     <section className="no-results">
+      {noPreviousSearches && (
+        <>
+          <img
+            src={iconHappy}
+            alt="Улыбающийся эмоджи"
+            className="no-results__img no-results__img_type_no-searches"
+          />
+        </>
+      )}
       {nothingFound && (
         <>
           <img

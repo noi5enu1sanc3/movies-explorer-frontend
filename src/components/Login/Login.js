@@ -4,9 +4,15 @@ import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const { values, handleChange, errors, isValid, inputsValidity } =
     useFormAndValidation();
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    onLogin(values);
+  };
 
   return (
     <main className="login">
@@ -14,7 +20,12 @@ const Login = () => {
         <img src={logo} alt="Логотип" className="login__logo" />
       </Link>
       <h2 className="login__greeting">Рады видеть!</h2>
-      <form className="login__form form" name="login-form" noValidate>
+      <form
+        className="login__form form"
+        name="login-form"
+        noValidate
+        onSubmit={handleSubmit}
+      >
         <label htmlFor="login-input-email" className="login__input-label">
           E-mail
         </label>
