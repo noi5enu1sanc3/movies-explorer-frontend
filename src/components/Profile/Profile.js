@@ -1,9 +1,11 @@
-import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useRef, useState, useContext, useEffect } from "react";
 import "./Profile.css";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-const Profile = ({ onLogout }) => {
+const Profile = ({ onLogout, onUpdateProfile, onSuccess }) => {
+  const currentUser = useContext(CurrentUserContext);
+
   const [isFormDisabled, setIsFormDisabled] = useState(true);
 
   const { values, handleChange, errors, isValid, setValues, inputsValidity } =
@@ -12,19 +14,30 @@ const Profile = ({ onLogout }) => {
   const ref = useRef(null);
 
   const enableEdit = () => {
+    console.log(currentUser);
+    setValues(currentUser);
     setIsFormDisabled(false);
     setTimeout(() => ref.current.focus(), 50);
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    setValues(values);
-    setIsFormDisabled(true);
+
+    onUpdateProfile(values);
+    if (onSuccess) setIsFormDisabled(true);
   };
+
+  useEffect(() => {
+    if (currentUser && !isFormDisabled) {
+      setValues({ name: currentUser.name, email: currentUser.email });
+    }
+  }, [currentUser, isFormDisabled]);
 
   return (
     <main className="profile">
-      <p className="profile__greeting">Привет, Виталий!</p>
+      <p className="profile__greeting">{`Привет, ${
+        currentUser ? currentUser.name : ""
+      }!`}</p>
       <form
         className={`profile__form form ${
           !isFormDisabled ? "profile__form_active" : ""
@@ -37,7 +50,7 @@ const Profile = ({ onLogout }) => {
           <label htmlFor="name-input" className="profile__input-label">
             Имя
             <input
-              value={values.name || ""}
+              value={values.name || currentUser.name || ""}
               onChange={handleChange}
               name="name"
               type="text"
@@ -55,7 +68,7 @@ const Profile = ({ onLogout }) => {
           <label htmlFor="email-input" className="profile__input-label">
             E-mail
             <input
-              value={values.email || ""}
+              value={values.email || currentUser.email || ""}
               onChange={handleChange}
               name="email"
               type="email"
@@ -69,15 +82,24 @@ const Profile = ({ onLogout }) => {
           <span className="profile__error">{errors.email}</span>
         </fieldset>
         {!isFormDisabled && (
-          <button
-            type="submit"
-            className={`profile__submit-btn ${
-              !isValid ? "profile__submit-btn_disabled" : ""
-            }`}
-            disabled={!isValid}
-          >
-            Сохранить
-          </button>
+          <div className="profile__buttons-wrapper">
+            <button
+              type="button"
+              className="profile__cancel-btn"
+              onClick={() => setIsFormDisabled(true)}
+            >
+              Отмена
+            </button>
+            <button
+              type="submit"
+              className={`profile__submit-btn ${
+                !isValid ? "profile__submit-btn_disabled" : ""
+              }`}
+              disabled={!isValid}
+            >
+              Сохранить
+            </button>
+          </div>
         )}
       </form>
       <div className="profile__buttons-wrapper">

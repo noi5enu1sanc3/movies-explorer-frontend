@@ -34,3 +34,15 @@ export const getUserInfo = async (token) => {
   });
   return getResponse(response);
 };
+
+export const updateUserInfo = async ({ name, email }) => {
+  const response = await fetch(`${BASE_MAIN_URL}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+    body: JSON.stringify({ name, email }),
+  });
+  return getResponse(response);
+};

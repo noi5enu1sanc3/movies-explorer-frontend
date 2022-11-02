@@ -160,6 +160,24 @@
   border-radius: var(--focused-text-border-radius);
 }
 
+.profile__cancel-btn {
+  background-color: transparent;
+  border: none;
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 400;
+  transition: opacity 0.4s ease-in;
+}
+
+.profile__cancel-btn:hover {
+  opacity: 0.8;
+}
+
+.profile__cancel-btn:focus-visible {
+  outline: var(--focused-text-outline);
+  border-radius: var(--focused-text-border-radius);
+}
+
 @media screen and (max-width: 900px) {
   .profile {
     padding-top: 236px;
