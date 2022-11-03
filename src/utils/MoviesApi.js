@@ -1,6 +1,5 @@
-import { BASE_MOVIES_URL } from "./constants";
+import { BEATFILM_URL, BASE_MOVIES_URL } from "./constants";
 
-const BEATFILM_URL = "/beatfilm-movies";
 const HEADERS = { "Content-Type": "application/json" };
 
 const getResponse = (res) =>
@@ -9,6 +8,8 @@ const getResponse = (res) =>
     : Promise.reject(`Rejected with error ${res.status}: ${res.message}`);
 
 export const getMovies = async () => {
-  const movies = await fetch(`${BASE_MOVIES_URL}${BEATFILM_URL}`, {headers: HEADERS});
+  const movies = await fetch(`${BASE_MOVIES_URL}${BEATFILM_URL}`, {
+    headers: HEADERS,
+  });
   return getResponse(movies);
 };

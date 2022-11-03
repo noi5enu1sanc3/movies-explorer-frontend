@@ -10,7 +10,7 @@ const SearchForm = ({ isLoading, handleSubmit, isChecked, query }) => {
     checkboxValues,
     setValues,
     setCheckBoxValues,
-    handleCheckBox,
+    handleCheckBox, //TODO checkbox is not a part of the form
     handleChange,
     errors,
     resetForm,

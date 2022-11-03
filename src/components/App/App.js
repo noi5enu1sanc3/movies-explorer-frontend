@@ -16,7 +16,23 @@ import {
   login,
   register,
   updateUserInfo,
+  getSavedMovies,
+  addMovie,
+  deleteMovie,
+  checkToken,
 } from "../../utils/MainApi";
+import {
+  saveToStorage,
+  extractFromStorage,
+  clearStorage,
+} from "../../utils/storageUtils";
+import {
+  JWT_KEY,
+  ALL_MOVIES_KEY,
+  USER_MOVIES_KEY,
+  USER_SEARCH_KEY,
+  STORE_KEY,
+} from "../../utils/constants";
 
 function App() {
   const navigate = useNavigate();
@@ -30,8 +46,70 @@ function App() {
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
+  const [savedMovies, setSavedMovies] = useState([]);
+
+  const addUserMovie = async (toggledMovie) => {
+    try {
+      const { movie } = await addMovie(toggledMovie);
+      setSavedMovies((state) => [...state, movie]);
+
+      // const userMovies = JSON.parse(localStorage.getItem("userMovies"));
+      const userMovies = extractFromStorage(USER_MOVIES_KEY);
+      userMovies.push(movie);
+      // localStorage.setItem("userMovies", JSON.stringify(userMovies));
+      saveToStorage(USER_MOVIES_KEY, userMovies);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const deleteUserMovie = async (toggledMovie) => {
+    try {
+      const movieToDelete = savedMovies.find(
+        (movie) =>
+          (toggledMovie.id || toggledMovie.movieId) ===
+          (movie.movieId || movie.id)
+      );
+
+      const { movie } = await deleteMovie(movieToDelete._id);
+
+      setSavedMovies((state) =>
+        state.filter((m) => m.movieId !== movie.movieId)
+      );
+      // const userMovies = JSON.parse(localStorage.getItem("userMovies"));
+      const userMovies = extractFromStorage(USER_MOVIES_KEY);
+
+      const newUserMovies = userMovies.filter(
+        (m) => m.movieId !== movie.movieId
+      );
+      // localStorage.setItem("userMovies", JSON.stringify(newUserMovies));
+      saveToStorage(USER_MOVIES_KEY, newUserMovies);
+    } catch (err) {
+      console.log(err);
+      setIsSuccessful(false);
+      setIsPopupOpen(true);
+    }
+  };
+
+  const handleToggleMovie = (toggledMovie) => {
+    // const userMovies = JSON.parse(localStorage.getItem("userMovies"));
+    const userMovies = extractFromStorage(USER_MOVIES_KEY);
+
+    // if (userMovies.some((movie) => movie.movieId === toggledMovie.id)) {
+    if (savedMovies.some((movie) => movie.movieId === toggledMovie.id)) {
+      deleteUserMovie(toggledMovie);
+    } else {
+      addUserMovie(toggledMovie);
+    }
+  };
+
   const handleClosePopup = () => {
     setIsPopupOpen(false);
+  };
+
+  const openPopup = () => {
+    setIsPopupOpen(true);
+    setTimeout(() => setIsPopupOpen(false), 1500);
   };
 
   const handleRegister = async ({ name, email, password }) => {
@@ -54,13 +132,14 @@ function App() {
     try {
       const { token } = await login({ email, password });
       if (token) {
-        localStorage.setItem("jwt", token);
+        // localStorage.setItem("jwt", token);
+        saveToStorage(JWT_KEY, token);
       } else {
         return;
       }
       setIsLoggedIn(true);
+      openPopup();
       navigate("/movies");
-      setIsSuccessful(true);
       setIsPopupOpen(true);
     } catch (err) {
       console.log(err);
@@ -71,17 +150,20 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("jwt");
+    // localStorage.removeItem("jwt");
+    clearStorage(STORE_KEY);
     setIsLoggedIn(false);
     navigate("/");
   };
 
   const handleTokenCheck = async () => {
     try {
-      if (localStorage.getItem("jwt")) {
-        const token = localStorage.getItem("jwt");
+      // const token = localStorage.getItem("jwt");
+      const token = extractFromStorage(JWT_KEY);
+
+      if (token) {
         console.log(token);
-        const data = await getUserInfo(token);
+        const data = await checkToken(token);
         if (data) {
           setIsLoggedIn(true);
           setCurrentUser(data.user);
@@ -90,6 +172,7 @@ function App() {
       }
     } catch (err) {
       console.log(err);
+      setIsLoggedIn(false);
     }
   };
 
@@ -98,15 +181,15 @@ function App() {
     try {
       const { user } = await updateUserInfo({ name, email });
       console.log(user);
-      setCurrentUser((prev) => ({
-        ...prev,
+      setCurrentUser((state) => ({
+        ...state,
         name: user.name,
         email: user.email,
       }));
       console.log(currentUser);
       letDisableForm();
       setIsSuccessful(true);
-      setIsPopupOpen(true);
+      openPopup();
     } catch (err) {
       console.log(err);
       setIsSuccessful(false);
@@ -124,9 +207,30 @@ function App() {
   useEffect(() => {
     handleTokenCheck();
     if (isLoggedIn) {
-      console.log("handleTokenCheck > ", isLoggedIn);
+      console.log("handleTokenCheck, logged in > ", isLoggedIn);
     }
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    // const userMovies = JSON.parse(localStorage.getItem("userMovies"));
+    const userMovies = extractFromStorage(USER_MOVIES_KEY);
+
+    if (userMovies) {
+      setSavedMovies(userMovies);
+    } else {
+      const loadSavedMovies = async () => {
+        const { movies } = await getSavedMovies();
+        setSavedMovies(movies);
+        // localStorage.setItem("userMovies", JSON.stringify(movies));
+        saveToStorage(USER_MOVIES_KEY, movies);
+      };
+      try {
+        loadSavedMovies();
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -134,8 +238,24 @@ function App() {
         <Routes>
           <Route element={<PageLayout isLoggedIn={isLoggedIn} />}>
             <Route path="/" element={<Main />} />
-            <Route path="movies" element={<Movies />} />
-            <Route path="saved-movies" element={<SavedMovies />} />
+            <Route
+              path="movies"
+              element={
+                <Movies
+                  toggleMovie={handleToggleMovie}
+                  savedMovies={savedMovies}
+                />
+              }
+            />
+            <Route
+              path="saved-movies"
+              element={
+                <SavedMovies
+                  movies={savedMovies}
+                  deleteMovie={deleteUserMovie}
+                />
+              }
+            />
             <Route
               path="profile"
               element={

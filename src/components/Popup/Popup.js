@@ -2,6 +2,7 @@ import React from "react";
 import "./Popup.css";
 import iconSad from "../../images/unsuccessful.svg";
 import iconHappy from "../../images/successful.svg";
+import { PROFILE_EDIT_SUCCESS_TEXT } from "../../utils/constants";
 
 const Popup = ({ isOpen, onClose, isSuccessful }) => {
   return (
@@ -13,8 +14,7 @@ const Popup = ({ isOpen, onClose, isSuccessful }) => {
           className="popup__img"
         />
         <p className="popup__message">
-          Здесь будет сообщение об ошибке Здесь будет сообщение об ошибке Здесь
-          будет сообщение об ошибке Здесь будет сообщение об ошибке
+          {`${isSuccessful ? PROFILE_EDIT_SUCCESS_TEXT : ""}`}
         </p>
         <button type="button" className="popup__close-btn" onClick={onClose} />
       </div>

@@ -4,8 +4,10 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import NoResults from "../NoResults/NoResults";
 import { useLocation } from "react-router-dom";
 
-const MoviesCardList = ({ cards, savedCards }) => {
+const MoviesCardList = ({ cards, savedCards, onToggle, onDelete }) => {
   const location = useLocation();
+
+  console.log(savedCards);
 
   return (
     <>
@@ -16,22 +18,29 @@ const MoviesCardList = ({ cards, savedCards }) => {
           ) : (
             <ul className="movies-card-list">
               {cards.map((card) => (
-                <MoviesCard key={card.id} card={card} />
+                <MoviesCard
+                  key={card.id}
+                  card={card}
+                  onToggle={onToggle}
+                  savedCards={savedCards}
+                />
               ))}
             </ul>
           )}
-          {/* {cards.length !== 0 && (
-            <button className="movies-section__load-more-btn">Ещё</button>
-          )} */}
         </section>
       ) : (
         <section className="movies-section">
-          {savedCards.length === 0 ? (
+          {savedCards.length === 0 || !savedCards ? (
             <NoResults />
           ) : (
             <ul className="movies-card-list">
               {savedCards.map((card) => (
-                <MoviesCard key={card.id} card={card} />
+                <MoviesCard
+                  key={card._id}
+                  card={card}
+                  onDelete={onDelete}
+                  savedCards={savedCards}
+                />
               ))}
             </ul>
           )}

@@ -1,12 +1,18 @@
-import React from "react";
 import { useLocation } from "react-router-dom";
 import "./MoviesCard.css";
 import { BASE_MOVIES_URL } from "../../utils/constants";
 import { formatDuration } from "../../utils/formatDuration";
 
-const MoviesCard = ({ card }) => {
-  const { nameRU, duration, image, trailerLink, isOwn = false } = card;
+const MoviesCard = ({ card, onToggle, onDelete, savedCards }) => {
+  const { nameRU, duration, image, trailerLink } = card;
   const formattedDuration = formatDuration(duration);
+
+  const handleToggle = () => onToggle(card);
+  const handleDelete = () => onDelete(card);
+
+  const isSaved = savedCards.some(
+    (savedCard) => savedCard.movieId === card.id || card.movieId
+  );
 
   const location = useLocation();
   return (
@@ -22,7 +28,11 @@ const MoviesCard = ({ card }) => {
         target="_blank"
       >
         <img
-          src={`${BASE_MOVIES_URL}/${image.url}`}
+          src={
+            location.pathname === "/movies"
+              ? `${BASE_MOVIES_URL}/${image.url}`
+              : image
+          }
           alt={nameRU}
           className="movies-card__img"
         />
@@ -31,16 +41,18 @@ const MoviesCard = ({ card }) => {
         <button
           type="button"
           className={`movies-card__save-btn ${
-            isOwn
+            isSaved
               ? "movies-card__save-btn_type_saved"
               : "movies-card__save-btn_type_unsaved"
           }`}
-        >{`${isOwn ? "" : "Сохранить"}`}</button>
+          onClick={handleToggle}
+        >{`${isSaved ? "" : "Сохранить"}`}</button>
       )}
       {location.pathname === "/saved-movies" && (
         <button
           type="button"
           className="movies-card__save-btn movies-card__save-btn_type_delete"
+          onClick={handleDelete}
         />
       )}
     </li>
