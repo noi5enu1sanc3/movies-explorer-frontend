@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./FilterCheckbox.css";
 
-const FilterCheckbox = ({ handleCheck, isChecked }) => {
+const FilterCheckbox = ({ isChecked, handleFilter }) => {
+  //const [isOn, setIsOn] = useState(isChecked);
+  const onFilter = () => {
+    const checked = !isChecked;
+    handleFilter(checked);
+  };
+
   return (
     <div className="filter">
-      <label className="filter__switch" htmlFor="filter" onChange={handleCheck}>
+      <label className="filter__switch" htmlFor="filter">
         <input
           name="shortMeter"
           className={`filter__input ${
@@ -12,7 +18,9 @@ const FilterCheckbox = ({ handleCheck, isChecked }) => {
           }`}
           type="checkbox"
           id="filter"
-          defaultChecked={isChecked}
+          //defaultChecked={isChecked}
+          checked={isChecked || false}
+          onChange={onFilter}
         />
         <div className="filter__slider"></div>
       </label>

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useContext } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./Movies.css";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
@@ -26,17 +26,15 @@ const Movies = ({ toggleMovie, savedMovies }) => {
 
   const allMovies = extractFromStorage(ALL_MOVIES_KEY);
 
-  const [movies, setMovies] = useState(userSearch ? userSearch.movies : []);
-  const [isShortChecked, setIsShortChecked] = useState(
-    userSearch ? userSearch.isShort : false
-  );
-  const [searchQuery, setSearchQuery] = useState(
-    userSearch ? userSearch.query : ""
-  );
+  const [search, setSearch] = useState({
+    movies: userSearch ? userSearch.movies : [],
+    searchQuery: userSearch ? userSearch.query : "",
+    isShortChecked: userSearch ? userSearch.isShortChecked : false,
+  });
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (query, isShort) => {
+  const handleSubmit = async (query) => {
     setIsLoading(true);
 
     const data = allMovies || (await getMovies());
@@ -46,38 +44,56 @@ const Movies = ({ toggleMovie, savedMovies }) => {
       (movie) =>
         (filterByQuery(movie.nameRU, query) ||
           filterByQuery(movie.nameEN, query)) &&
-        (isShort ? filterByDuration(movie.duration) : movie) //TODO let search with diacrits, e.g. bjork
+        (search.isShortChecked ? filterByDuration(movie.duration) : movie) //TODO let search with diacrits, e.g. bjork
     );
     setEnd(getInitialCardsCount(width));
-    setMovies(movies);
+    setSearch((state) => {
+      return { ...state, movies: movies, searchQuery: query };
+    });
 
-    const userSearch = { query: query, isShort: isShort, movies: movies };
-
+    const userSearch = {
+      query: query,
+      movies: movies,
+      isShortChecked: search.isShortChecked,
+    };
     saveToStorage(USER_SEARCH_KEY, userSearch);
-
     setIsLoading(false);
   };
 
-  // const getInitialCardsCount = () => {
-  //   if (width <= 767) return 5;
-  //   if (width <= 1275) return 8;
-  //   return 12;
-  // };
-  // const getLoadCount = () => {
-  //   if (width <= 767) return 2;
-  //   if (width <= 1275) return 2;
-  //   return 3;
-  // };
+  const handleFilter = (isShort) => {
+    if (search.movies) {
+      const movies = allMovies.filter(
+        (movie) =>
+          //isShort ? filterByDuration(movie.duration) : movie
+          (filterByQuery(movie.nameRU, search.searchQuery) ||
+            filterByQuery(movie.nameEN, search.searchQuery)) &&
+          (isShort ? filterByDuration(movie.duration) : movie)
+      );
+      setEnd(getInitialCardsCount(width));
+      setSearch((state) => {
+        return { ...state, movies: movies, isShortChecked: isShort };
+      });
+      const userSearch = {
+        query: search.searchQuery,
+        movies: movies,
+        isShortChecked: isShort,
+      };
+      saveToStorage(USER_SEARCH_KEY, userSearch);
+    }
+  };
 
   const [end, setEnd] = useState(getInitialCardsCount(width));
 
-  const getCards = useCallback(() => movies.slice(0, end), [movies, end]);
+  const getCards = useCallback(
+    () => search.movies.slice(0, end),
+    [search, end]
+  );
   const [cards, setCards] = useState(getCards());
 
   const isLoadMoreVisible =
     location.pathname === "/movies" &&
-    cards.length !== movies.length &&
-    movies.length > getInitialCardsCount(width);
+    cards.length !== search.movies.length &&
+    search.movies.length > getInitialCardsCount(width);
 
   const handleLoadMore = () => {
     setEnd(cards.length + getLoadCount(width));
@@ -90,10 +106,12 @@ const Movies = ({ toggleMovie, savedMovies }) => {
 
   return (
     <main className="movies">
-      <SearchForm
+      <SearchForm //TODO make container component for form and filter??
         handleSubmit={handleSubmit}
-        isChecked={isShortChecked}
-        query={searchQuery}
+        isChecked={search.isShortChecked}
+        setSearch={setSearch}
+        searchQuery={search.searchQuery}
+        handleFilter={handleFilter}
       />
       {isLoading ? (
         <Preloader />

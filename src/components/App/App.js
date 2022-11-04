@@ -53,10 +53,8 @@ function App() {
       const { movie } = await addMovie(toggledMovie);
       setSavedMovies((state) => [...state, movie]);
 
-      // const userMovies = JSON.parse(localStorage.getItem("userMovies"));
       const userMovies = extractFromStorage(USER_MOVIES_KEY);
       userMovies.push(movie);
-      // localStorage.setItem("userMovies", JSON.stringify(userMovies));
       saveToStorage(USER_MOVIES_KEY, userMovies);
     } catch (err) {
       console.log(err);
@@ -76,13 +74,11 @@ function App() {
       setSavedMovies((state) =>
         state.filter((m) => m.movieId !== movie.movieId)
       );
-      // const userMovies = JSON.parse(localStorage.getItem("userMovies"));
       const userMovies = extractFromStorage(USER_MOVIES_KEY);
 
       const newUserMovies = userMovies.filter(
         (m) => m.movieId !== movie.movieId
       );
-      // localStorage.setItem("userMovies", JSON.stringify(newUserMovies));
       saveToStorage(USER_MOVIES_KEY, newUserMovies);
     } catch (err) {
       console.log(err);
@@ -92,10 +88,6 @@ function App() {
   };
 
   const handleToggleMovie = (toggledMovie) => {
-    // const userMovies = JSON.parse(localStorage.getItem("userMovies"));
-    const userMovies = extractFromStorage(USER_MOVIES_KEY);
-
-    // if (userMovies.some((movie) => movie.movieId === toggledMovie.id)) {
     if (savedMovies.some((movie) => movie.movieId === toggledMovie.id)) {
       deleteUserMovie(toggledMovie);
     } else {
@@ -132,7 +124,6 @@ function App() {
     try {
       const { token } = await login({ email, password });
       if (token) {
-        // localStorage.setItem("jwt", token);
         saveToStorage(JWT_KEY, token);
       } else {
         return;
@@ -150,7 +141,6 @@ function App() {
   };
 
   const handleLogout = () => {
-    // localStorage.removeItem("jwt");
     clearStorage(STORE_KEY);
     setIsLoggedIn(false);
     navigate("/");
@@ -158,7 +148,6 @@ function App() {
 
   const handleTokenCheck = async () => {
     try {
-      // const token = localStorage.getItem("jwt");
       const token = extractFromStorage(JWT_KEY);
 
       if (token) {
@@ -212,7 +201,6 @@ function App() {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    // const userMovies = JSON.parse(localStorage.getItem("userMovies"));
     const userMovies = extractFromStorage(USER_MOVIES_KEY);
 
     if (userMovies) {
@@ -221,7 +209,7 @@ function App() {
       const loadSavedMovies = async () => {
         const { movies } = await getSavedMovies();
         setSavedMovies(movies);
-        // localStorage.setItem("userMovies", JSON.stringify(movies));
+
         saveToStorage(USER_MOVIES_KEY, movies);
       };
       try {

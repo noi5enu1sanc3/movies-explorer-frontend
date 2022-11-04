@@ -4,7 +4,14 @@ import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import { SUBMIT_ERROR_TEXT } from "../../utils/constants";
 import { useEffect } from "react";
 
-const SearchForm = ({ isLoading, handleSubmit, isChecked, query }) => {
+const SearchForm = ({
+  isLoading,
+  handleSubmit,
+  isChecked,
+  searchQuery,
+  setSearch,
+  handleFilter,
+}) => {
   const {
     values,
     checkboxValues,
@@ -22,23 +29,28 @@ const SearchForm = ({ isLoading, handleSubmit, isChecked, query }) => {
     evt.preventDefault();
 
     const query = values.movie;
-    const filter = checkboxValues.shortMeter;
+    setSearch((state) => {
+      return { ...state, searchQuery: query };
+    });
+    //const filter = checkboxValues.shortMeter;
 
     validateSubmit(evt, SUBMIT_ERROR_TEXT);
     if (!query) return;
 
-    handleSubmit(query, filter);
+    // handleSubmit(query, filter);
+    handleSubmit(query);
+
     resetErrors();
   };
 
   const onReset = () => {
     resetForm();
     setCheckBoxValues({ shortMeter: false });
-    console.log(checkboxValues);
   };
 
   useEffect(() => {
-    setValues({ movie: query });
+    //setValues({ movie: query });
+    setValues({ movie: searchQuery });
     setCheckBoxValues({ shortMeter: isChecked });
   }, []);
 
@@ -79,8 +91,9 @@ const SearchForm = ({ isLoading, handleSubmit, isChecked, query }) => {
         </div>
       </form>
       <FilterCheckbox
-        handleCheck={handleCheckBox}
-        isChecked={checkboxValues.shortMeter}
+        setIsChecked={setSearch}
+        isChecked={isChecked}
+        handleFilter={handleFilter}
       />
     </section>
   );
