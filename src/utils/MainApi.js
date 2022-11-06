@@ -1,12 +1,32 @@
-import { BASE_MAIN_URL, BASE_MOVIES_URL, JWT_KEY } from "./constants";
+import {
+  BASE_MAIN_URL,
+  BASE_MOVIES_URL,
+  JWT_KEY,
+  LINK_REGEX,
+  MOVIE_NAME_PLACEHOLDER,
+  MOVIE_NUM_PLACEHOLDER,
+  MOVIE_VIDEO_LINK_PLACEHOLDER,
+} from "./constants";
 import { extractFromStorage } from "./storageUtils";
 
 const mapKeys = ({ id, created_at, updated_at, ...movie }) => {
   return {
     ...movie,
+    nameRU: movie.nameRU || movie.nameEN || MOVIE_NAME_PLACEHOLDER,
+    nameEN: movie.nameEN || movie.nameRU || MOVIE_NAME_PLACEHOLDER,
+    country: movie.country || MOVIE_NAME_PLACEHOLDER,
     thumbnail: `${BASE_MOVIES_URL}${movie.image.formats.thumbnail.url}`,
-    movieId: id,
     image: `${BASE_MOVIES_URL}${movie.image.url}`,
+    movieId: id,
+    director: movie.director || MOVIE_NAME_PLACEHOLDER,
+    duration: movie.duration || MOVIE_NUM_PLACEHOLDER,
+    year: movie.year || MOVIE_NUM_PLACEHOLDER,
+    description: movie.description || MOVIE_NAME_PLACEHOLDER,
+    trailerLink:
+      (movie.trailerLink &&
+        LINK_REGEX.test(movie.trailerLink) &&
+        movie.trailerLink) ||
+      MOVIE_VIDEO_LINK_PLACEHOLDER,
   };
 };
 
@@ -17,13 +37,19 @@ const HEADERS = {
 
 const getAuthHeaders = (token) => {
   return {
-    "Content-Type": "application/json",
+    ...HEADERS,
     Authorization: `Bearer ${token}`,
   };
 };
 
-const getResponse = (res) =>
-  res.ok ? res.json() : Promise.reject(`Rejected with error ${res.status}`);
+const getAuthHeadersWithStorageToken = () => {
+  return {
+    ...HEADERS,
+    Authorization: `Bearer ${extractFromStorage(JWT_KEY)}`,
+  };
+};
+
+const getResponse = (res) => (res.ok ? res.json() : Promise.reject(res));
 
 export const register = async ({ name, email, password }) => {
   const response = await fetch(`${BASE_MAIN_URL}/signup`, {
@@ -45,21 +71,14 @@ export const login = async ({ email, password }) => {
 
 export const checkToken = async (token) => {
   const response = await fetch(`${BASE_MAIN_URL}/users/me`, {
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
+    headers: getAuthHeaders(token),
   });
   return getResponse(response);
 };
 
 export const getUserInfo = async () => {
   const response = await fetch(`${BASE_MAIN_URL}/users/me`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${extractFromStorage(JWT_KEY)}`,
-    },
+    headers: getAuthHeadersWithStorageToken(),
   });
   return getResponse(response);
 };
@@ -67,10 +86,7 @@ export const getUserInfo = async () => {
 export const updateUserInfo = async ({ name, email }) => {
   const response = await fetch(`${BASE_MAIN_URL}/users/me`, {
     method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${extractFromStorage(JWT_KEY)}`,
-    },
+    headers: getAuthHeadersWithStorageToken(),
     body: JSON.stringify({ name, email }),
   });
   return getResponse(response);
@@ -78,10 +94,7 @@ export const updateUserInfo = async ({ name, email }) => {
 
 export const getSavedMovies = async () => {
   const savedMovies = await fetch(`${BASE_MAIN_URL}/movies`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${extractFromStorage(JWT_KEY)}`,
-    },
+    headers: getAuthHeadersWithStorageToken(),
   });
   return getResponse(savedMovies);
 };
@@ -90,23 +103,16 @@ export const addMovie = async (movie) => {
   const reqBody = JSON.stringify(mapKeys(movie));
   const addedMovie = await fetch(`${BASE_MAIN_URL}/movies`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${extractFromStorage(JWT_KEY)}`,
-    },
+    headers: getAuthHeadersWithStorageToken(),
     body: reqBody,
   });
   return getResponse(addedMovie);
 };
 
 export const deleteMovie = async (movie) => {
-  console.log(movie);
   const deletedMovie = await fetch(`${BASE_MAIN_URL}/movies/${movie}`, {
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${extractFromStorage(JWT_KEY)}`,
-    },
+    headers: getAuthHeadersWithStorageToken(),
   });
   return getResponse(deletedMovie);
 };

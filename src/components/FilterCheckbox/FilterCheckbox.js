@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
 import "./FilterCheckbox.css";
 
 const FilterCheckbox = ({ isChecked, handleFilter }) => {
-  //const [isOn, setIsOn] = useState(isChecked);
   const onFilter = () => {
     const checked = !isChecked;
     handleFilter(checked);
@@ -18,9 +16,9 @@ const FilterCheckbox = ({ isChecked, handleFilter }) => {
           }`}
           type="checkbox"
           id="filter"
-          //defaultChecked={isChecked}
           checked={isChecked || false}
           onChange={onFilter}
+          aria-label="Только короткометражки"
         />
         <div className="filter__slider"></div>
       </label>

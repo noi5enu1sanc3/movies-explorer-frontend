@@ -4,8 +4,12 @@ import { BASE_MOVIES_URL } from "../../utils/constants";
 import { formatDuration } from "../../utils/formatDuration";
 
 const MoviesCard = ({ card, onToggle, onDelete, savedCards }) => {
+  const location = useLocation();
+
   const { nameRU, duration, image, trailerLink } = card;
   const formattedDuration = formatDuration(duration);
+  const formattedImageUrl =
+    location.pathname === "/movies" ? `${BASE_MOVIES_URL}/${image.url}` : image;
 
   const handleToggle = () => onToggle(card);
   const handleDelete = () => onDelete(card);
@@ -14,7 +18,6 @@ const MoviesCard = ({ card, onToggle, onDelete, savedCards }) => {
     (savedCard) => savedCard.movieId === card.id || card.movieId
   );
 
-  const location = useLocation();
   return (
     <li className="movies-card">
       <div className="movies-card__info">
@@ -28,11 +31,7 @@ const MoviesCard = ({ card, onToggle, onDelete, savedCards }) => {
         target="_blank"
       >
         <img
-          src={
-            location.pathname === "/movies"
-              ? `${BASE_MOVIES_URL}/${image.url}`
-              : image
-          }
+          src={formattedImageUrl}
           alt={nameRU}
           className="movies-card__img"
         />
@@ -45,6 +44,7 @@ const MoviesCard = ({ card, onToggle, onDelete, savedCards }) => {
               ? "movies-card__save-btn_type_saved"
               : "movies-card__save-btn_type_unsaved"
           }`}
+          aria-label={`${isSaved ? "Удалить фильм из избранного" : ""}`}
           onClick={handleToggle}
         >{`${isSaved ? "" : "Сохранить"}`}</button>
       )}
@@ -53,6 +53,7 @@ const MoviesCard = ({ card, onToggle, onDelete, savedCards }) => {
           type="button"
           className="movies-card__save-btn movies-card__save-btn_type_delete"
           onClick={handleDelete}
+          aria-label="Удалить фильм из избранного"
         />
       )}
     </li>

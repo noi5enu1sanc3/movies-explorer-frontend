@@ -1,16 +1,27 @@
-import React from "react";
 import "./NoResults.css";
 import { useLocation } from "react-router-dom";
 import iconSad from "../../images/unsuccessful.svg";
 import iconHappy from "../../images/successful.svg";
 import { extractFromStorage } from "../../utils/storageUtils";
-import { USER_SEARCH_KEY } from "../../utils/constants";
+import {
+  NOTHING_FOUND_TEXT,
+  NOTHING_SAVED_TEXT,
+  USER_MOVIES_KEY,
+  USER_SEARCH_KEY,
+} from "../../utils/constants";
 
 const NoResults = () => {
   const location = useLocation();
-  const nothingSaved = location.pathname === "/saved-movies";
+
+  const nothingSaved =
+    location.pathname === "/saved-movies" &&
+    extractFromStorage(USER_MOVIES_KEY).length === 0;
+
   const nothingFound =
-    location.pathname === "/movies" && extractFromStorage(USER_SEARCH_KEY);
+    (location.pathname === "/movies" && extractFromStorage(USER_SEARCH_KEY)) ||
+    (location.pathname === "/saved-movies" &&
+      extractFromStorage(USER_MOVIES_KEY).length > 0);
+
   const noPreviousSearches =
     location.pathname === "/movies" && !extractFromStorage(USER_SEARCH_KEY);
 
@@ -32,7 +43,7 @@ const NoResults = () => {
             alt="Грустный эмоджи"
             className="no-results__img"
           />
-          <p>По этому запросу ничего не найдено</p>
+          <p>{NOTHING_FOUND_TEXT}</p>
         </>
       )}
       {nothingSaved && (
@@ -42,7 +53,7 @@ const NoResults = () => {
             alt="Улыбающийся эмоджи"
             className="no-results__img"
           />
-          <p>Вы ещё ничего не сохранили!</p>
+          <p>{NOTHING_SAVED_TEXT}</p>
         </>
       )}
     </section>

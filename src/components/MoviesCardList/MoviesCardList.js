@@ -1,13 +1,20 @@
-import React from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import NoResults from "../NoResults/NoResults";
 import { useLocation } from "react-router-dom";
 
-const MoviesCardList = ({ cards, savedCards, onToggle, onDelete }) => {
+const MoviesCardList = ({
+  cards,
+  savedCards,
+  onToggle,
+  onDelete,
+  serverErrorText,
+  isError,
+}) => {
   const location = useLocation();
 
-  console.log(savedCards);
+  if (isError)
+    return <span className="movies__server-error-text">{serverErrorText}</span>;
 
   return (
     <>

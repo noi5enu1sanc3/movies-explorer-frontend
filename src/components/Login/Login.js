@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, serverErrorText, isLoading }) => {
   const { values, handleChange, errors, isValid, inputsValidity } =
     useFormAndValidation();
 
@@ -32,12 +32,13 @@ const Login = ({ onLogin }) => {
         <input
           value={values.email || ""}
           onChange={handleChange}
-          className={`login__input ${
+          className={`input login__input ${
             !inputsValidity.email ? "login__input_invalid" : ""
           }`}
           id="login-input-email"
           name="email"
           type="email"
+          disabled={isLoading}
           required
         />
         <span className="login__error">{errors.email}</span>
@@ -47,26 +48,26 @@ const Login = ({ onLogin }) => {
         <input
           value={values.password || ""}
           onChange={handleChange}
-          className={`login__input ${
+          className={`input login__input ${
             !inputsValidity.password ? "login__input_invalid" : ""
           }`}
           id="login-input-password"
           name="password"
           type="password"
+          disabled={isLoading}
           required
         />
         <span className="login__error">{errors.password}</span>
         <button
           type="submit"
-          className={`login__submit-btn ${
-            !isValid ? "login__submit-btn_disabled" : ""
-          }`}
-          disabled={!isValid}
+          className="login__submit-btn"
+          disabled={!isValid || isLoading}
         >
-          Войти
+          {isLoading ? "Вход..." : "Войти"}
         </button>
       </form>
       <p className="login__text">
+        <span className="login__server-error">{serverErrorText}</span>
         <span className="login__signup-text">Ещё не зарегистрированы?</span>
         <Link to="/signup" className="login__signup-link">
           Регистрация

@@ -1,20 +1,37 @@
-import React, { useRef, useState, useContext, useEffect } from "react";
+import { useRef, useContext, useEffect, useState } from "react";
 import "./Profile.css";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-const Profile = ({ onLogout, onUpdateProfile, onSuccess }) => {
+const Profile = ({
+  onLogout,
+  onUpdateProfile,
+  isFormDisabled,
+  setIsFormDisabled,
+  serverErrorText,
+  setServerError,
+  isLoading,
+}) => {
   const currentUser = useContext(CurrentUserContext);
 
-  const [isFormDisabled, setIsFormDisabled] = useState(true);
-
-  const { values, handleChange, errors, isValid, setValues, inputsValidity } =
-    useFormAndValidation();
+  const {
+    values,
+    handleChange,
+    errors,
+    isValid,
+    setValues,
+    inputsValidity,
+    setIsValid,
+    resetForm,
+  } = useFormAndValidation();
 
   const ref = useRef(null);
 
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+
   const enableEdit = () => {
-    console.log(currentUser);
+    setServerError("");
+    setIsValid(false);
     setValues(currentUser);
     setIsFormDisabled(false);
     setTimeout(() => ref.current.focus(), 50);
@@ -22,16 +39,31 @@ const Profile = ({ onLogout, onUpdateProfile, onSuccess }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
     onUpdateProfile(values);
-    if (onSuccess) setIsFormDisabled(true);
+  };
+
+  const handleCancelEdit = () => {
+    resetForm();
+    setValues(currentUser);
+    setIsFormDisabled(true);
   };
 
   useEffect(() => {
-    if (currentUser && !isFormDisabled) {
+    console.log(values, currentUser, isLoading, isValid);
+    setIsSubmitDisabled(
+      !isValid ||
+        (values.name === currentUser.name &&
+          values.email === currentUser.email) ||
+        isLoading
+    );
+  }, [values, currentUser, isLoading, isValid]);
+
+  useEffect(() => {
+    if (currentUser) {
       setValues({ name: currentUser.name, email: currentUser.email });
     }
-  }, [currentUser, isFormDisabled]);
+    return () => setIsFormDisabled(true);
+  }, [currentUser]);
 
   return (
     <main className="profile">
@@ -46,11 +78,14 @@ const Profile = ({ onLogout, onUpdateProfile, onSuccess }) => {
         onSubmit={handleSubmit}
         noValidate
       >
-        <fieldset className="profile__fieldset" disabled={isFormDisabled}>
+        <fieldset
+          className="profile__fieldset"
+          disabled={isFormDisabled || isLoading}
+        >
           <label htmlFor="name-input" className="profile__input-label">
             Имя
             <input
-              value={values.name || currentUser.name || ""}
+              value={values.name || ""}
               onChange={handleChange}
               name="name"
               type="text"
@@ -58,7 +93,7 @@ const Profile = ({ onLogout, onUpdateProfile, onSuccess }) => {
               maxLength="30"
               required
               id="name-input"
-              className={`profile__input ${
+              className={`input profile__input ${
                 inputsValidity.name === false ? "profile__input_invalid" : ""
               }`}
               ref={ref}
@@ -68,13 +103,13 @@ const Profile = ({ onLogout, onUpdateProfile, onSuccess }) => {
           <label htmlFor="email-input" className="profile__input-label">
             E-mail
             <input
-              value={values.email || currentUser.email || ""}
+              value={values.email || ""}
               onChange={handleChange}
               name="email"
               type="email"
               required
               id="email-input"
-              className={`profile__input ${
+              className={`input profile__input ${
                 inputsValidity.email === false ? "profile__input_invalid" : ""
               }`}
             />
@@ -83,21 +118,21 @@ const Profile = ({ onLogout, onUpdateProfile, onSuccess }) => {
         </fieldset>
         {!isFormDisabled && (
           <div className="profile__buttons-wrapper">
+            <span className="profile__server-error">{serverErrorText}</span>
             <button
               type="button"
               className="profile__cancel-btn"
-              onClick={() => setIsFormDisabled(true)}
+              onClick={handleCancelEdit}
+              disabled={isLoading}
             >
               Отмена
             </button>
             <button
               type="submit"
-              className={`profile__submit-btn ${
-                !isValid ? "profile__submit-btn_disabled" : ""
-              }`}
-              disabled={!isValid}
+              className="profile__submit-btn"
+              disabled={isSubmitDisabled}
             >
-              Сохранить
+              {isLoading ? "Сохраняем..." : "Сохранить"}
             </button>
           </div>
         )}

@@ -1,0 +1,18 @@
+import {
+  ERROR_CODE_CONFLICT,
+  ERROR_CODE_UNAUTHORIZED,
+  ERROR_CODE_VALIDATION_ERROR,
+  ERROR_CONFLICT_TEXT,
+  ERROR_INTERNAL_SERVER_TEXT,
+  ERROR_UNAUTHORIZED_TEXT,
+  ERROR_VALIDATION_TEXT,
+} from "./constants";
+
+export default function handleServerErrors(errorStatus) {
+  if (parseInt(errorStatus) === ERROR_CODE_CONFLICT) return ERROR_CONFLICT_TEXT;
+  if (parseInt(errorStatus) === ERROR_CODE_UNAUTHORIZED)
+    return ERROR_UNAUTHORIZED_TEXT;
+  if (parseInt(errorStatus) === ERROR_CODE_VALIDATION_ERROR)
+    return ERROR_VALIDATION_TEXT;
+  return ERROR_INTERNAL_SERVER_TEXT;
+}

@@ -17,8 +17,14 @@ import {
   getInitialCardsCount,
   getLoadCount,
 } from "../../utils/loadMoreLayoutUtils";
+import handleServerErrors from "../../utils/handleServerErrors";
 
-const Movies = ({ toggleMovie, savedMovies }) => {
+const Movies = ({
+  toggleMovie,
+  savedMovies,
+  setServerError,
+  serverErrorText,
+}) => {
   const location = useLocation();
   const width = useWindowResize();
 
@@ -32,41 +38,47 @@ const Movies = ({ toggleMovie, savedMovies }) => {
     isShortChecked: userSearch ? userSearch.isShortChecked : false,
   });
 
+  const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [end, setEnd] = useState(getInitialCardsCount(width));
 
-  const handleSubmit = async (query) => {
+  const handleSearch = async (query) => {
+    setIsError(false);
     setIsLoading(true);
+    try {
+      const data = allMovies || (await getMovies());
 
-    const data = allMovies || (await getMovies());
+      if (!allMovies) saveToStorage(ALL_MOVIES_KEY, data);
 
-    if (!allMovies) saveToStorage(ALL_MOVIES_KEY, data);
-    const movies = data.filter(
-      (movie) =>
-        (filterByQuery(movie.nameRU, query) ||
-          filterByQuery(movie.nameEN, query)) &&
-        (search.isShortChecked ? filterByDuration(movie.duration) : movie) //TODO let search with diacrits, e.g. bjork
-    );
-    setEnd(getInitialCardsCount(width));
-    setSearch((state) => {
-      return { ...state, movies: movies, searchQuery: query };
-    });
+      const movies = data.filter(
+        (movie) =>
+          filterByQuery([movie.nameRU, movie.nameEN], query) &&
+          (search.isShortChecked ? filterByDuration(movie.duration) : movie)
+      );
+      setEnd(getInitialCardsCount(width));
+      setSearch((state) => {
+        return { ...state, movies: movies, searchQuery: query };
+      });
 
-    const userSearch = {
-      query: query,
-      movies: movies,
-      isShortChecked: search.isShortChecked,
-    };
-    saveToStorage(USER_SEARCH_KEY, userSearch);
+      const userSearch = {
+        query: query,
+        movies: movies,
+        isShortChecked: search.isShortChecked,
+      };
+      saveToStorage(USER_SEARCH_KEY, userSearch);
+    } catch (err) {
+      console.log(err);
+      setIsError(true);
+      setServerError(handleServerErrors(err.status));
+    }
     setIsLoading(false);
   };
 
   const handleFilter = (isShort) => {
-    if (search.movies) {
+    if (allMovies) {
       const movies = allMovies.filter(
         (movie) =>
-          //isShort ? filterByDuration(movie.duration) : movie
-          (filterByQuery(movie.nameRU, search.searchQuery) ||
-            filterByQuery(movie.nameEN, search.searchQuery)) &&
+          filterByQuery([movie.nameRU, movie.nameEN], search.searchQuery) &&
           (isShort ? filterByDuration(movie.duration) : movie)
       );
       setEnd(getInitialCardsCount(width));
@@ -82,8 +94,6 @@ const Movies = ({ toggleMovie, savedMovies }) => {
     }
   };
 
-  const [end, setEnd] = useState(getInitialCardsCount(width));
-
   const getCards = useCallback(
     () => search.movies.slice(0, end),
     [search, end]
@@ -93,7 +103,8 @@ const Movies = ({ toggleMovie, savedMovies }) => {
   const isLoadMoreVisible =
     location.pathname === "/movies" &&
     cards.length !== search.movies.length &&
-    search.movies.length > getInitialCardsCount(width);
+    search.movies.length > getInitialCardsCount(width) &&
+    !isError;
 
   const handleLoadMore = () => {
     setEnd(cards.length + getLoadCount(width));
@@ -106,12 +117,13 @@ const Movies = ({ toggleMovie, savedMovies }) => {
 
   return (
     <main className="movies">
-      <SearchForm //TODO make container component for form and filter??
-        handleSubmit={handleSubmit}
+      <SearchForm
+        handleSearch={handleSearch}
         isChecked={search.isShortChecked}
         setSearch={setSearch}
         searchQuery={search.searchQuery}
         handleFilter={handleFilter}
+        isLoading={isLoading}
       />
       {isLoading ? (
         <Preloader />
@@ -121,6 +133,8 @@ const Movies = ({ toggleMovie, savedMovies }) => {
             cards={cards}
             onToggle={toggleMovie}
             savedCards={savedMovies}
+            serverErrorText={serverErrorText}
+            isError={isError}
           />
           {isLoadMoreVisible && <LoadMoreButton onLoadMore={handleLoadMore} />}
         </>

@@ -4,13 +4,12 @@ import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-const Register = ({ onRegister }) => {
+const Register = ({ onRegister, serverErrorText, isLoading }) => {
   const { values, handleChange, errors, isValid, inputsValidity } =
     useFormAndValidation();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log(values)
     onRegister(values);
   };
 
@@ -32,7 +31,7 @@ const Register = ({ onRegister }) => {
         <input
           value={values.name || ""}
           onChange={handleChange}
-          className={`register__input ${
+          className={`input register__input ${
             !inputsValidity.name ? "register__input_invalid" : ""
           }`}
           id="register-input-name"
@@ -40,6 +39,7 @@ const Register = ({ onRegister }) => {
           type="text"
           minLength="2"
           maxLength="30"
+          disabled={isLoading}
           required
         />
         <span className="register__error">{errors.name}</span>
@@ -49,12 +49,13 @@ const Register = ({ onRegister }) => {
         <input
           value={values.email || ""}
           onChange={handleChange}
-          className={`register__input ${
+          className={`input register__input ${
             !inputsValidity.email ? "register__input_invalid" : ""
           }`}
           id="register-input-email"
           name="email"
           type="email"
+          disabled={isLoading}
           required
         />
         <span className="register__error">{errors.email}</span>
@@ -67,26 +68,26 @@ const Register = ({ onRegister }) => {
         <input
           value={values.password || ""}
           onChange={handleChange}
-          className={`register__input ${
+          className={`input register__input ${
             !inputsValidity.password ? "register__input_invalid" : ""
           }`}
           id="register-input-password"
           name="password"
           type="password"
+          disabled={isLoading}
           required
         />
         <span className="register__error">{errors.password}</span>
         <button
           type="submit"
-          className={`register__submit-btn ${
-            !isValid ? "register__submit-btn_disabled" : ""
-          }`}
-          disabled={!isValid}
+          className="register__submit-btn"
+          disabled={!isValid || isLoading}
         >
-          Зарегистрироваться
+          {isLoading ? "Регистрация..." : "Зарегистрироваться"}
         </button>
       </form>
       <p className="register__text">
+        <span className="register__server-error">{serverErrorText}</span>
         <span className="register__signin-text">Уже зарегистрированы?</span>
         <Link to="/signin" className="register__signin-link">
           Войти
