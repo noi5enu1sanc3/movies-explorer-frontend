@@ -1,5 +1,7 @@
 # Movies Explorer
 
+[Ссылка на проект (シ. .)シ](https://noi5e.nomoredomains.icu/)
+
 [Ссылка на макет (Яндекс.Диск)](https://disk.yandex.ru/d/QG6pmelG6TxhAQ)
 
 ---
