@@ -1,7 +1,7 @@
 export const SUBMIT_ERROR_TEXT = "Нужно ввести ключевое слово";
 
 export const BASE_MOVIES_URL = "https://api.nomoreparties.co";
-export const BASE_MAIN_URL = "http://localhost:3000";
+export const BASE_MAIN_URL = process.env.REACT_APP_API_ENDPOINT;
 export const BEATFILM_URL = "/beatfilm-movies";
 
 export const MOVIEAPI_ERROR_TEXT =

@@ -52,6 +52,8 @@ function App() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [serverError, setServerError] = useState("");
 
+  const [isFormDisabled, setIsFormDisabled] = useState(true);
+
   const addUserMovie = async (toggledMovie) => {
     setIsLoading(true);
     try {
@@ -174,8 +176,6 @@ function App() {
       setIsLoggedIn(false);
     }
   };
-
-  const [isFormDisabled, setIsFormDisabled] = useState(true);
 
   const handleUpdateProfile = async ({ name, email }) => {
     setIsLoading(true);

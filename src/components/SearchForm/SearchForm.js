@@ -42,7 +42,7 @@ const SearchForm = ({
 
   useEffect(() => {
     setValues({ movie: searchQuery });
-  }, []);
+  }, [searchQuery, setValues]);
 
   return (
     <section className="search">

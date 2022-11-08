@@ -49,7 +49,6 @@ const Profile = ({
   };
 
   useEffect(() => {
-    console.log(values, currentUser, isLoading, isValid);
     setIsSubmitDisabled(
       !isValid ||
         (values.name === currentUser.name &&
@@ -63,7 +62,7 @@ const Profile = ({
       setValues({ name: currentUser.name, email: currentUser.email });
     }
     return () => setIsFormDisabled(true);
-  }, [currentUser]);
+  }, [currentUser, setIsFormDisabled, setValues]);
 
   return (
     <main className="profile">
