@@ -138,6 +138,7 @@ function App() {
       if (token) {
         saveToStorage(JWT_KEY, token);
       } else {
+        setServerError("qqq")
         return;
       }
       setIsLoggedIn(true);
