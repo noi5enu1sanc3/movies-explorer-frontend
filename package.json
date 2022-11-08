@@ -10,7 +10,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./build/* noi5e@62.84.123.30:/home/noi5e/mesto-frontend",
+    "deploy": "npm run build && scp -r ./build/* noi5e5@158.160.5.247:/home/noi5e5/movies-explorer-frontend",
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
