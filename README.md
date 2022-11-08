@@ -1,7 +1,10 @@
 # Movies Explorer
 
 [Ссылка на макет (Яндекс.Диск)](https://disk.yandex.ru/d/QG6pmelG6TxhAQ)
-[PR](https://github.com/noi5enu1sanc3/movies-explorer-frontend/pull/14)
+
+---
+
+[Ссылка на PR](https://github.com/noi5enu1sanc3/movies-explorer-frontend/pull/14)
 
 ## Available Scripts
 
