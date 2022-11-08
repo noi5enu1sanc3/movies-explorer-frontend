@@ -9,6 +9,8 @@
     "react-scripts": "^5.0.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "npm run build && scp -r ./build/* noi5e@62.84.123.30:/home/noi5e/mesto-frontend",
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
