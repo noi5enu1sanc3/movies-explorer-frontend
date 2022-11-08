@@ -50,7 +50,11 @@ function App() {
   const [popupMessageText, setPopupMessageText] = useState("");
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [serverError, setServerError] = useState("");
+  const [serverError, setServerError] = useState({
+    login: "",
+    register: "",
+    profile: "",
+  });
 
   const [isFormDisabled, setIsFormDisabled] = useState(true);
 
@@ -123,12 +127,20 @@ function App() {
     try {
       await register({ name, email, password });
       setIsSuccessful(true);
+      setServerError(prev => {
+        return {
+        ...prev,
+        register: "",
+      }});
       handleLogin({ email, password });
     } catch (err) {
       console.log(err);
-      setServerError(handleServerErrors(err.status));
+      setServerError(prev => {
+        return {
+        ...prev,
+        register: handleServerErrors(err.status),
+      }});
     }
-    setServerError("");
   };
 
   const handleLogin = async ({ email, password }) => {
@@ -138,10 +150,14 @@ function App() {
       if (token) {
         saveToStorage(JWT_KEY, token);
       } else {
-        setServerError("qqq")
         return;
       }
       setIsLoggedIn(true);
+      setServerError(prev => {
+        return {
+        ...prev,
+        login: "",
+      }});
       openPopup();
       navigate("/movies");
       setIsSuccessful(true);
@@ -149,10 +165,13 @@ function App() {
       setIsPopupOpen(true);
     } catch (err) {
       console.log(err);
-      setServerError(handleServerErrors(err.status));
+      setServerError(prev => {
+        return {
+        ...prev,
+        login: handleServerErrors(err.status),
+      }});
     }
     setIsLoading(false);
-    setServerError("");
   };
 
   const handleLogout = () => {
@@ -187,13 +206,22 @@ function App() {
         name: user.name,
         email: user.email,
       }));
+      setServerError(prev => {
+        return {
+        ...prev,
+        profile: "",
+      }});
       setIsFormDisabled(true);
       setIsSuccessful(true);
       setPopupMessageText(PROFILE_EDIT_SUCCESS_TEXT);
       openPopup();
     } catch (err) {
       console.log(err);
-      setServerError(handleServerErrors(err.status));
+      setServerError(prev => {
+        return {
+        ...prev,
+        profile: handleServerErrors(err.status),
+      }});
     }
     setIsLoading(false);
   };
@@ -265,7 +293,7 @@ function App() {
                     isFormDisabled={isFormDisabled}
                     setIsFormDisabled={setIsFormDisabled}
                     setServerError={setServerError}
-                    serverErrorText={serverError}
+                    serverErrorText={serverError.profile}
                     isLoading={isLoading}
                   />
                 }
@@ -277,7 +305,8 @@ function App() {
                 !isLoggedIn ? (
                   <Register
                     onRegister={handleRegister}
-                    serverErrorText={serverError}
+                    setServerError={setServerError}
+                    serverErrorText={serverError.register}
                     isLoading={isLoading}
                   />
                 ) : (
@@ -291,7 +320,8 @@ function App() {
                 !isLoggedIn ? (
                   <Login
                     onLogin={handleLogin}
-                    serverErrorText={serverError}
+                    setServerError={setServerError}
+                    serverErrorText={serverError.login}
                     isLoading={isLoading}
                   />
                 ) : (

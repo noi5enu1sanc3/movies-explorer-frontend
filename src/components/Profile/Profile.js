@@ -30,7 +30,11 @@ const Profile = ({
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
   const enableEdit = () => {
-    setServerError("");
+    setServerError(prev => {
+      return {
+      ...prev,
+      profile: "",
+    }});
     setIsValid(false);
     setValues(currentUser);
     setIsFormDisabled(false);

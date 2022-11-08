@@ -1,10 +1,10 @@
-import React from "react";
+import { useEffect } from "react";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-const Login = ({ onLogin, serverErrorText, isLoading }) => {
+const Login = ({ onLogin, serverErrorText, isLoading, setServerError }) => {
   const { values, handleChange, errors, isValid, inputsValidity } =
     useFormAndValidation();
 
@@ -13,6 +13,15 @@ const Login = ({ onLogin, serverErrorText, isLoading }) => {
 
     onLogin(values);
   };
+
+  useEffect(() => {
+    setServerError((prev) => {
+      return {
+        ...prev,
+        login: "",
+      };
+    });
+  }, []);
 
   return (
     <main className="login">

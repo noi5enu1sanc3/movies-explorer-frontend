@@ -1,9 +1,15 @@
 import "./Register.css";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-const Register = ({ onRegister, serverErrorText, isLoading }) => {
+const Register = ({
+  onRegister,
+  serverErrorText,
+  isLoading,
+  setServerError,
+}) => {
   const { values, handleChange, errors, isValid, inputsValidity } =
     useFormAndValidation();
 
@@ -11,6 +17,15 @@ const Register = ({ onRegister, serverErrorText, isLoading }) => {
     evt.preventDefault();
     onRegister(values);
   };
+
+  useEffect(() => {
+    setServerError((prev) => {
+      return {
+        ...prev,
+        register: "",
+      };
+    });
+  });
 
   return (
     <main className="register">
