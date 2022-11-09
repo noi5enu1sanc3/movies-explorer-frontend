@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./NavTab.css";
 import "./BurgerMenu.css";
 import { NavLink, useLocation } from "react-router-dom";

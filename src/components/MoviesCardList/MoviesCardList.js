@@ -1,16 +1,23 @@
-import React from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import Preloader from "../Preloader/Preloader";
 import NoResults from "../NoResults/NoResults";
 import { useLocation } from "react-router-dom";
 
-const MoviesCardList = ({ isLoading, cards, savedCards }) => {
+const MoviesCardList = ({
+  cards,
+  savedCards,
+  onToggle,
+  onDelete,
+  serverErrorText,
+  isError,
+}) => {
   const location = useLocation();
+
+  if (isError)
+    return <span className="movies__server-error-text">{serverErrorText}</span>;
 
   return (
     <>
-      {isLoading && <Preloader />}
       {location.pathname === "/movies" ? (
         <section className="movies-section">
           {cards.length === 0 ? (
@@ -18,22 +25,29 @@ const MoviesCardList = ({ isLoading, cards, savedCards }) => {
           ) : (
             <ul className="movies-card-list">
               {cards.map((card) => (
-                <MoviesCard key={card.id} card={card} />
+                <MoviesCard
+                  key={card.id}
+                  card={card}
+                  onToggle={onToggle}
+                  savedCards={savedCards}
+                />
               ))}
             </ul>
-          )}
-          {cards.length !== 0 && (
-            <button className="movies-section__load-more-btn">Ещё</button>
           )}
         </section>
       ) : (
         <section className="movies-section">
-          {savedCards.length === 0 ? (
+          {savedCards.length === 0 || !savedCards ? (
             <NoResults />
           ) : (
             <ul className="movies-card-list">
               {savedCards.map((card) => (
-                <MoviesCard key={card.id} card={card} />
+                <MoviesCard
+                  key={card._id}
+                  card={card}
+                  onDelete={onDelete}
+                  savedCards={savedCards}
+                />
               ))}
             </ul>
           )}

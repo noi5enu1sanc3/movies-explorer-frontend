@@ -10,6 +10,11 @@
   color: var(--text-color-grey);
   text-align: center;
 }
+
+.no-results__img_type_no-searches {
+  padding: 90px 0 0;
+}
+
 .no-results__img {
   width: 50px;
 }

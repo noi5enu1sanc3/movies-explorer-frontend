@@ -1,16 +1,18 @@
 .search__search-form {
-  padding: 86px 0 62px;
+  padding: 70px 0 50px;
 }
 
 .search__search-form__wrapper {
   position: relative;
   box-sizing: border-box;
-  padding: 15px 0;
+  margin-bottom: 30px;
+  padding: 15px 0 0;
   width: 100%;
   border: none;
   border-bottom: 1px solid var(--accent-color-darker-grey);
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
 }
 
 .search__search-form__wrapper:focus-within {
@@ -30,7 +32,12 @@
   transition: all 0.4s ease-in-out;
 }
 
-.search__search-form__reset-btn_active {
+.search__search-form__reset-btn_loading {
+  background-image: none;
+}
+
+.search__search-form__reset-btn:disabled
+  .search__search-form__reset-btn_active {
   background-image: url("../../images/icon-delete.svg");
   background-repeat: no-repeat;
   background-position: center;
@@ -45,6 +52,13 @@
   line-height: 1.2;
   font-weight: 400;
   text-align: center;
+  flex-grow: 1;
+}
+
+.search__search-input:disabled {
+  border: none;
+  background-color: transparent;
+  color: var(--text-color-grey);
 }
 
 .search__search-input:focus {
@@ -59,9 +73,22 @@
   font-weight: 500;
 }
 
-.search__error {
+.search__input-error {
   position: absolute;
   top: 80px;
+  left: 0;
+  color: var(--accent-color-pink);
+  display: block;
+  min-height: 24px;
+  font-size: 15px;
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+.search__submit-error {
+  position: absolute;
+  top: 80px;
+  right: 0;
   color: var(--accent-color-pink);
   display: block;
   min-height: 24px;
@@ -83,6 +110,10 @@
   transition: opacity 0.4s ease-in;
 }
 
+.search__search-btn:disabled {
+  background-color: var(--fill-color-neutral-grey);
+}
+
 .search__search-btn:focus-visible {
   outline: none;
   box-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.6);
@@ -96,22 +127,13 @@
   opacity: 0.8;
 }
 
-.search__search-btn_disabled {
-  cursor: default;
-  opacity: 0.5;
-}
-
-.search__search-btn_disabled:hover {
-  opacity: 0.5;
-}
-
 @media screen and (max-width: 500px) {
   .search__search-form__wrapper {
     padding-left: 4px;
     padding-right: 4px;
   }
   .search__search-input {
-    flex-grow: 2;
+    flex-grow: 1;
     text-align: start;
     font-size: 16px;
   }

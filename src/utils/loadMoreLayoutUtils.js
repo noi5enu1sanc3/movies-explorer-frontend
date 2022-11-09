@@ -1,0 +1,17 @@
+import { MAX_WIDTH, ITEMS_COUNT } from "./constants";
+
+export const getInitialCardsCount = (width) => {
+  if (width <= MAX_WIDTH.SINGLE_COLUMN_LAYOUT)
+    return ITEMS_COUNT.INITIAL.SINGLE_COLUMN_LAYOUT;
+  if (width <= MAX_WIDTH.TWO_COLUMNS_LAYOUT)
+    return ITEMS_COUNT.INITIAL.TWO_COLUMNS_LAYOUT;
+  return ITEMS_COUNT.INITIAL.THREE_COLUMNS_LAYOUT;
+};
+
+export const getLoadCount = (width) => {
+  if (width <= MAX_WIDTH.SINGLE_COLUMN_LAYOUT)
+    return ITEMS_COUNT.TO_LOAD.SINGLE_COLUMN_LAYOUT;
+  if (width <= MAX_WIDTH.TWO_COLUMNS_LAYOUT)
+    return ITEMS_COUNT.TO_LOAD.TWO_COLUMNS_LAYOUT;
+  return ITEMS_COUNT.TO_LOAD.THREE_COLUMNS_LAYOUT;
+};

@@ -1,18 +1,10 @@
-import React, { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import NavTab from "../NavTab/NavTab";
-import Popup from "../Popup/Popup";
 
 const PageLayout = ({ isLoggedIn }) => {
   const location = useLocation();
-
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-  const handleClosePopup = () => {
-    setIsPopupOpen(false);
-  };
 
   const headerVisible =
     location.pathname !== "/signin" &&
@@ -28,7 +20,6 @@ const PageLayout = ({ isLoggedIn }) => {
     <>
       {headerVisible && <Header isLoggedIn={isLoggedIn} />}
       <Outlet />
-      <Popup isOpen={isPopupOpen} onClose={handleClosePopup} />
       {isLoggedIn && <NavTab />}
       {footerVisible && <Footer />}
     </>

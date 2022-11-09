@@ -61,6 +61,11 @@
   border-bottom: 1px solid #000;
 }
 
+.login__input:disabled {
+  border: none;
+  background-color: transparent;
+}
+
 .login__input_invalid {
   color: var(--accent-color-pink);
 }
@@ -109,10 +114,19 @@
 }
 
 .login__text {
+  position: relative;
   margin: 0;
   align-self: center;
   display: flex;
   gap: 6px;
+}
+
+.login__server-error {
+  position: absolute;
+  top: -150px;
+  left: 0;
+  color: var(--accent-color-pink);
+  font-size: 16px;
 }
 
 .login__signup-text {
@@ -164,6 +178,9 @@
   .login__form {
     width: 100%;
     margin-bottom: 14px;
+  }
+  .login__server-error {
+    font-size: 13px;
   }
   .login__submit-btn {
     font-size: 12px;
