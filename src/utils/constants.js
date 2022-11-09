@@ -26,6 +26,8 @@ export const MOVIE_NAME_PLACEHOLDER = "unknown";
 export const MOVIE_NUM_PLACEHOLDER = 0;
 export const MOVIE_VIDEO_LINK_PLACEHOLDER = "https://www.youtube.com/";
 
+export const SHORT_MOVIE_MAX_DURATION = 40;
+
 export const STORE_KEY = "store";
 export const JWT_KEY = "jwt";
 export const ALL_MOVIES_KEY = "allMovies";
