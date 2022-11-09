@@ -127,19 +127,23 @@ function App() {
     try {
       await register({ name, email, password });
       setIsSuccessful(true);
-      setServerError(prev => {
+      setServerError((prev) => {
         return {
-        ...prev,
-        register: "",
-      }});
+          ...prev,
+          register: "",
+        };
+      });
       handleLogin({ email, password });
     } catch (err) {
+      setIsLoading(false);
+      setIsSuccessful(false);
       console.log(err);
-      setServerError(prev => {
+      setServerError((prev) => {
         return {
-        ...prev,
-        register: handleServerErrors(err.status),
-      }});
+          ...prev,
+          register: handleServerErrors(err.status),
+        };
+      });
     }
   };
 
@@ -153,11 +157,12 @@ function App() {
         return;
       }
       setIsLoggedIn(true);
-      setServerError(prev => {
+      setServerError((prev) => {
         return {
-        ...prev,
-        login: "",
-      }});
+          ...prev,
+          login: "",
+        };
+      });
       openPopup();
       navigate("/movies");
       setIsSuccessful(true);
@@ -165,11 +170,12 @@ function App() {
       setIsPopupOpen(true);
     } catch (err) {
       console.log(err);
-      setServerError(prev => {
+      setServerError((prev) => {
         return {
-        ...prev,
-        login: handleServerErrors(err.status),
-      }});
+          ...prev,
+          login: handleServerErrors(err.status),
+        };
+      });
     }
     setIsLoading(false);
   };
@@ -206,22 +212,24 @@ function App() {
         name: user.name,
         email: user.email,
       }));
-      setServerError(prev => {
+      setServerError((prev) => {
         return {
-        ...prev,
-        profile: "",
-      }});
+          ...prev,
+          profile: "",
+        };
+      });
       setIsFormDisabled(true);
       setIsSuccessful(true);
       setPopupMessageText(PROFILE_EDIT_SUCCESS_TEXT);
       openPopup();
     } catch (err) {
       console.log(err);
-      setServerError(prev => {
+      setServerError((prev) => {
         return {
-        ...prev,
-        profile: handleServerErrors(err.status),
-      }});
+          ...prev,
+          profile: handleServerErrors(err.status),
+        };
+      });
     }
     setIsLoading(false);
   };
