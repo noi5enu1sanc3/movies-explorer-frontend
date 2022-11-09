@@ -25,7 +25,7 @@ const Register = ({
         register: "",
       };
     });
-  });
+  }, []);
 
   return (
     <main className="register">
