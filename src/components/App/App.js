@@ -58,6 +58,12 @@ function App() {
 
   const [isFormDisabled, setIsFormDisabled] = useState(true);
 
+  const clearUserState = () => {
+    clearStorage(STORE_KEY);
+    setCurrentUser({});
+    setSavedMovies([]);
+  };
+
   const addUserMovie = async (toggledMovie) => {
     setIsLoading(true);
     try {
@@ -181,7 +187,7 @@ function App() {
   };
 
   const handleLogout = () => {
-    clearStorage(STORE_KEY);
+    clearUserState();
     setIsLoggedIn(false);
     navigate("/");
   };
@@ -196,13 +202,13 @@ function App() {
           setIsLoggedIn(true);
           setCurrentUser(user);
         } else {
-          clearStorage(STORE_KEY);
+          clearUserState();
           setIsLoggedIn(false);
         }
       }
     } catch (err) {
       console.log(err);
-      clearStorage(STORE_KEY);
+      clearUserState();
       setIsLoggedIn(false);
     }
   };
