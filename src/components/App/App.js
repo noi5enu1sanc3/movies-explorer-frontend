@@ -195,10 +195,14 @@ function App() {
         if (user) {
           setIsLoggedIn(true);
           setCurrentUser(user);
+        } else {
+          clearStorage(STORE_KEY);
+          setIsLoggedIn(false);
         }
       }
     } catch (err) {
       console.log(err);
+      clearStorage(STORE_KEY);
       setIsLoggedIn(false);
     }
   };
